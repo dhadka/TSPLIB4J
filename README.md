@@ -1,9 +1,9 @@
 A Java library for TSPLIB
 ===
 
-### About TSPLIB:
+### About TSPLIB4J:
 
-[TSPLIB](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/) is a collection of [Traveling Salesman Problem](http://en.wikipedia.org/wiki/Travelling_salesman_problem) instances and a file format for storing TSP instance data.
+[TSPLIB](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/) is a collection of [Traveling Salesman Problem](http://en.wikipedia.org/wiki/Travelling_salesman_problem) instances and a file format for storing TSP instance data.  TSPLIB4J is a Java library for reading TSPLIB instance data.
 
 Prerequisites:
 
@@ -12,13 +12,13 @@ Prerequisites:
 
 ### Reading TSP Instance Data:
 
-TSPProblem problem = new TSPProblem();
-problem.load(new File("./data/tsp/pcb442.tsp"));
-problem.addTour(new File("./data/tsp/pcb442.opt.tour"));
-		
-for (Tour tour : problem.getTours()) {
-	System.out.println(tour.distance(problem.getDistanceTable()));
-}
+    TSPProblem problem = new TSPProblem();
+    problem.load(new File("./data/tsp/pcb442.tsp"));
+    problem.addTour(new File("./data/tsp/pcb442.opt.tour"));
+    		
+    for (Tour tour : problem.getTours()) {
+    	System.out.println(tour.distance(problem.getDistanceTable()));
+    }
 
 
 Other Open Source Libraries
