@@ -183,15 +183,15 @@ public class TSPProblem {
 
 	public static void main(String[] args) throws IOException {
 		TSPProblem problem = new TSPProblem();
-		problem.load(new File("./data/tsp/brazil58.tsp"));
+		problem.load(new File("./data/tsp/gr666.tsp"));
 		problem.addTour(Tour.createCanonicalTour(problem.getDimension()));
-		problem.addTour(new File("./data/tsp/pcb442.opt.tour"));
+		//problem.addTour(new File("./data/tsp/gr666.opt.tour"));
 		
 		for (Tour tour : problem.getTours()) {
 			System.out.println(tour.distance(problem.getDistanceTable()));
 		}
 		
-		System.out.println(problem.getDistanceTable());
+		//System.out.println(problem.getDistanceTable());
 	}
 
 }

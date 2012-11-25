@@ -132,10 +132,15 @@ public class Test {
 				problem.addTour(optimalTour);
 				
 				for (Tour tour : problem.getTours()) {
-					System.out.println(key + " " + tour.distance(problem.getDistanceTable()) + " " + optimalResults.get(key));
+					double tourLength = tour.distance(problem.getDistanceTable());
+					double optimalLength = optimalResults.get(key);
+					
+					if (Math.abs(tourLength - optimalLength) > 0.5) {
+						System.out.println(key + " results do not match: " + tourLength + " " + optimalLength + " " + problem.getEdgeWeightType());
+					}
 				}
 			} else {
-				System.err.println(key + " missing instance data or optimal tour");
+				//System.err.println(key + " missing instance data or optimal tour");
 			}
 		}
 	}

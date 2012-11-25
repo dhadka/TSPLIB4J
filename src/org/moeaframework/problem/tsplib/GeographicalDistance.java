@@ -2,14 +2,16 @@ package org.moeaframework.problem.tsplib;
 
 public class GeographicalDistance extends DistanceFunction {
 	
+	private static final double PI = 3.141592;
+	
 	public GeographicalDistance() {
 		super();
 	}
 	
 	public double toGeographical(double x) {
-		double deg = Math.round(x);
+		int deg = (int)(x);
 		double min = x - deg;
-		return Math.PI * (deg + 5.0 * min / 3.0) / 180.0;
+		return PI * (deg + 5.0 * min / 3.0) / 180.0;
 	}
 	
 	@Override

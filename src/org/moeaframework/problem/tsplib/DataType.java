@@ -1,5 +1,8 @@
 package org.moeaframework.problem.tsplib;
 
+/**
+ * The type of data file.
+ */
 public enum DataType {
 	
 	/**

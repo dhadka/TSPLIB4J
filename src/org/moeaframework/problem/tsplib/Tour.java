@@ -18,13 +18,17 @@ public class Tour {
 	public void load(BufferedReader reader) throws IOException {
 		String line = null;
 		
-		while ((line = reader.readLine()) != null) {
-			int id = Integer.parseInt(line);
+		outer: while ((line = reader.readLine()) != null) {
+			String[] tokens = line.trim().split("\\s+");
 			
-			if (id == -1) {
-				break;
-			} else {
-				nodes.add(id);
+			for (int i = 0; i < tokens.length; i++) {
+				int id = Integer.parseInt(tokens[i]);
+				
+				if (id == -1) {
+					break outer;
+				} else {
+					nodes.add(id);
+				}
 			}
 		}
 	}
