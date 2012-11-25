@@ -44,5 +44,36 @@ public class Edge {
 	public int getId2() {
 		return id2;
 	}
+	
+	/**
+	 * Returns {@code true} if either endpoint of this edge is the specified
+	 * node; {@code false} otherwise.
+	 * 
+	 * @param id the identifier of the node
+	 * @return {@code true} if either endpoint of this edge is the specified
+	 *         node; {@code false} otherwis
+	 */
+	public boolean hasEndpoint(int id) {
+		return (id == id1) || (id == id2);
+	}
+	
+	/**
+	 * Returns the opposite endpoint of this edge.
+	 * 
+	 * @param id the identifier of the one endpoint
+	 * @return the opposite endpoint of this edge
+	 * @throws IllegalArgumentException if this edge does not have the any
+	 *         endpoint with the specified identifier
+	 */
+	public int getOppositeEndpoint(int id) {
+		if (id == id1) {
+			return id2;
+		} else if (id == id2) {
+			return id1;
+		} else {
+			throw new IllegalArgumentException("edge does not have endpoint " +
+					id);
+		}
+	}
 
 }

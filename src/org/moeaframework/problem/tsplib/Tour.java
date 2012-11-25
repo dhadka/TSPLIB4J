@@ -3,7 +3,9 @@ package org.moeaframework.problem.tsplib;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Stores the nodes (by their identifier) that are visited in a tour.
@@ -86,6 +88,43 @@ public class Tour {
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * Returns {@code true} if this tour is a Hamiltonian cycle; {@code false}
+	 * otherwise.  A Hamiltonian cycle is a path through a graph that visits
+	 * every node exactly once.
+	 * 
+	 * @param distanceTable the distance table that defines the edges in the
+	 *        graph
+	 * @return {@code true} if this tour is a Hamiltonian cycle; {@code false}
+	 *         otherwise
+	 */
+	public boolean isHamiltonianCycle(DistanceTable distanceTable) {
+		Set<Integer> visited = new HashSet<Integer>();
+		
+		// scan through nodes to determine if any invalid edges are followed
+		for (int i = 0; i < nodes.size(); i++) {
+			int id1 = nodes.get(i);
+			int id2 = nodes.get((i+1) % nodes.size());
+			
+			if (visited.contains(id2)) {
+				return false;
+			} else if (!distanceTable.isNeighbor(id1, id2)) {
+				return false;
+			} else {
+				visited.add(id2);
+			}
+		}
+		
+		// determine if all nodes were visited
+		for (int id : distanceTable.listNodes()) {
+			if (!visited.contains(id)) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	/**

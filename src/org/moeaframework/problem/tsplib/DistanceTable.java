@@ -47,5 +47,26 @@ public abstract class DistanceTable {
 	 *         table
 	 */
 	public abstract void load(BufferedReader reader) throws IOException;
+	
+	/**
+	 * Returns {@code true} if the specified nodes are neighbors; {@code false}
+	 * otherwise.
+	 * 
+	 * @param id1 the identifier of the first node
+	 * @param id2 the identifier of the second node
+	 * @return {@code true} if the specified nodes are neighbors; {@code false}
+	 *         otherwise
+	 */
+	public boolean isNeighbor(int id1, int id2) {
+		int[] neighbors = getNeighborsOf(id1);
+		
+		for (int i = 0; i < neighbors.length; i++) {
+			if (neighbors[i] == id2) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
 }

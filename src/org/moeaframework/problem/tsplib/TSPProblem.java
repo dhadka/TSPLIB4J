@@ -134,6 +134,9 @@ public class TSPProblem {
 				} else if (line.equals("EDGE_WEIGHT_SECTION")) {
 					distanceTable = new EdgeWeightMatrix(dimension, edgeWeightFormat);
 					distanceTable.load(reader);
+				} else if (line.equals("EDGE_DATA_SECTION")) {
+					distanceTable = new EdgeData(dimension, edgeDataFormat);
+					distanceTable.load(reader);
 				} else if (line.equals("DISPLAY_DATA_SECTION")) {
 					displayData = new NodeCoordinates(dimension, NodeCoordType.TWOD_COORDS, null);
 					displayData.load(reader);
@@ -366,16 +369,20 @@ public class TSPProblem {
 	}
 
 	public static void main(String[] args) throws IOException {
-		TSPProblem problem = new TSPProblem();
-		problem.load(new File("./data/tsp/gr666.tsp"));
+//		TSPProblem problem = new TSPProblem(new File("./data/tsp/gr666.tsp"));
+//		problem.addTour(Tour.createCanonicalTour(problem.getDimension()));
+//
+//		for (Tour tour : problem.getTours()) {
+//			System.out.println(tour.distance(problem.getDistanceTable()));
+//		}
+		
+		TSPProblem problem = new TSPProblem(new File("./data/hcp/alb1000.hcp"));
 		problem.addTour(Tour.createCanonicalTour(problem.getDimension()));
-		//problem.addTour(new File("./data/tsp/gr666.opt.tour"));
+		problem.addTour(new File("./data/hcp/alb1000.opt.tour"));
 		
 		for (Tour tour : problem.getTours()) {
-			System.out.println(tour.distance(problem.getDistanceTable()));
+			System.out.println(tour.isHamiltonianCycle(problem.getDistanceTable()));
 		}
-		
-		//System.out.println(problem.getDistanceTable());
 	}
 
 }
