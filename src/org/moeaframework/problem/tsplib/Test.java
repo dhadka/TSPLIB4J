@@ -135,8 +135,21 @@ public class Test {
 					double tourLength = tour.distance(problem.getDistanceTable());
 					double optimalLength = optimalResults.get(key);
 					
+					System.out.print(key);
+					System.out.print(' ');
+					System.out.print(problem.getEdgeWeightFormat());
+					System.out.print(' ');
+					System.out.print(problem.getEdgeWeightType());
+					System.out.print(' ');
+					System.out.print(tourLength);
+					System.out.print(' ');
+					System.out.print(optimalLength);
+					System.out.print(' ');
+					
 					if (Math.abs(tourLength - optimalLength) > 0.5) {
-						System.out.println(key + " results do not match: " + tourLength + " " + optimalLength + " " + problem.getEdgeWeightType());
+						System.out.println("Error!");
+					} else {
+						System.out.println("Match!");
 					}
 				}
 			} else {

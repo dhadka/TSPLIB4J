@@ -1,5 +1,9 @@
 package org.moeaframework.problem.tsplib;
 
+/**
+ * Enumeration of the ways that explicit edge weights (distances) can be
+ * specified.
+ */
 public enum EdgeWeightType {
 	
 	/**

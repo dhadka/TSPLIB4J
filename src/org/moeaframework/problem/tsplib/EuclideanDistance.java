@@ -1,7 +1,13 @@
 package org.moeaframework.problem.tsplib;
 
+/**
+ * The Euclidean distance function.
+ */
 public class EuclideanDistance extends DistanceFunction {
 	
+	/**
+	 * Constructs a new Euclidean distance function.
+	 */
 	public EuclideanDistance() {
 		super();
 	}

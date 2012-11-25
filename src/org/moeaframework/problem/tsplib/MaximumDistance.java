@@ -1,7 +1,13 @@
 package org.moeaframework.problem.tsplib;
 
+/**
+ * The maximum distance function.
+ */
 public class MaximumDistance extends DistanceFunction {
 	
+	/**
+	 * Constructs a new maximum distance function.
+	 */
 	public MaximumDistance() {
 		super();
 	}

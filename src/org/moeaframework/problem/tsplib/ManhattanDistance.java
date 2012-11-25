@@ -1,7 +1,13 @@
 package org.moeaframework.problem.tsplib;
 
+/**
+ * The Manhattan distance function.
+ */
 public class ManhattanDistance extends DistanceFunction {
 	
+	/**
+	 * Constructs a new Manhattan distance function.
+	 */
 	public ManhattanDistance() {
 		super();
 	}

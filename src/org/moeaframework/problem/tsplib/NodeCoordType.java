@@ -1,5 +1,8 @@
 package org.moeaframework.problem.tsplib;
 
+/**
+ * Enumeration of the ways node coordinates can be specified.
+ */
 public enum NodeCoordType {
 	
 	/**
@@ -17,12 +20,25 @@ public enum NodeCoordType {
 	 */
 	NO_COORDS(-1);
 	
+	/**
+	 * The length (dimension) of the coordinates.
+	 */
 	private final int length;
 	
+	/**
+	 * Constructs a new node coordinate enumeration.
+	 * 
+	 * @param length the length (dimension) of the coordinates
+	 */
 	private NodeCoordType(int length) {
 		this.length = length;
 	}
 	
+	/**
+	 * Returns the length (dimension) of the coordinates.
+	 * 
+	 * @return the length (dimension) of the coordinates
+	 */
 	public int getLength() {
 		return length;
 	}

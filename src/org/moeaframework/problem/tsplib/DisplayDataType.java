@@ -1,5 +1,8 @@
 package org.moeaframework.problem.tsplib;
 
+/**
+ * Enumeration of ways a graphical display can be generated from the data.
+ */
 public enum DisplayDataType {
 	
 	/**

@@ -108,6 +108,21 @@ public class TSPProblem {
 				reader.close();
 			}
 		}
+		
+		// fill in default settings
+		if (nodeCoordinateType == null) {
+			nodeCoordinateType = NodeCoordType.NO_COORDS;
+		}
+		
+		if (displayDataType == null) {
+			if (NodeCoordType.NO_COORDS.equals(nodeCoordinateType)) {
+				displayDataType = DisplayDataType.NO_DISPLAY;
+			} else if (displayData != null) {
+				displayDataType = DisplayDataType.TWOD_DISPLAY;
+			} else {
+				displayDataType = DisplayDataType.COORD_DISPLAY;
+			} 
+		}
 	}
 	
 	public void addTour(Tour tour) {

@@ -1,5 +1,9 @@
 package org.moeaframework.problem.tsplib;
 
+/**
+ * Enumeration of the various formats in which edge weights (distances) can be
+ * specified.
+ */
 public enum EdgeWeightFormat {
 	
 	/**

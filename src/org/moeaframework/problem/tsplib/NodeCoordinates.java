@@ -86,6 +86,10 @@ public class NodeCoordinates extends DistanceTable {
 		int index = 0;
 		int[] neighbors = new int[dimension-1];
 		
+		if (!nodes.containsKey(id)) {
+			throw new IllegalArgumentException("no node with identifier");
+		}
+		
 		for (Node node : nodes.values()) {
 			if (node.getId() != id) {
 				neighbors[index++] = node.getId();
@@ -97,6 +101,13 @@ public class NodeCoordinates extends DistanceTable {
 
 	@Override
 	public double getDistanceBetween(int id1, int id2) {
+		Node node1 = get(id1);
+		Node node2 = get(id2);
+		
+		if ((node1 == null) || (node2 == null)) {
+			throw new IllegalArgumentException("no node with identifier");
+		}
+		
 		return distanceFunction.distance(get(id1), get(id2));
 	}
 	
