@@ -7,14 +7,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A TSPLIB problem instance.
+ */
 public class TSPProblem {
 	
+	/**
+	 * The name of this problem instance.
+	 */
 	private String name;
 	
+	/**
+	 * The type of this problem instance.
+	 */
 	private DataType dataType;
 	
+	/**
+	 * Any comments about this problem instance.
+	 */
 	private String comment;
 	
+	/**
+	 * The number of nodes defined by this problem instance.
+	 */
 	private int dimension;
 	
 	private int capacity;

@@ -6,23 +6,54 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Stores the edge weight matrix from a TSPLIB problem instance.
+ */
 public class EdgeWeightMatrix extends DistanceTable {
 	
-	private final int dimension;
+	/**
+	 * The number of nodes represented in this edge weight matrix.
+	 */
+	private final int size;
 	
+	/**
+	 * The format of this edge weight matrix.  This defines the format stored
+	 * in the TSPLIB problem instance.  This implementation converts from this
+	 * format to a full matrix.
+	 */
 	private final EdgeWeightFormat format;
 	
+	/**
+	 * The edge weight matrix.  This edge weights are always stored in a full
+	 * matrix, regardless of the input edge weight format.
+	 */
 	private final double[][] matrix;
 	
-	public EdgeWeightMatrix(int dimension, EdgeWeightFormat format) {
+	/**
+	 * Constructs a new, empty edge weight matrix.
+	 * 
+	 * @param size the number of nodes represented in this edge weight matrix
+	 * @param format the format of this edge weight matrix
+	 */
+	public EdgeWeightMatrix(int size, EdgeWeightFormat format) {
 		super();
-		this.dimension = dimension;
+		this.size = size;
 		this.format = format;
 		
-		matrix = new double[dimension][dimension];
+		matrix = new double[size][size];
 	}
 	
-	private void readNextLine(BufferedReader reader, Queue<Double> entries) throws IOException {
+	/**
+	 * Reads the next line from the reader, parses out one or more weights, and
+	 * appends the weights to the given queue.
+	 * 
+	 * @param reader the reader containing the edge weights
+	 * @param entries the queue of read but unprocessed edge weights
+	 * @throws IOException if an I/O error occurred while reading the edge
+	 *         weights
+	 */
+	private void readNextLine(BufferedReader reader, Queue<Double> entries)
+			throws IOException {
 		String line = reader.readLine();
 		
 		if (line == null) {
@@ -49,9 +80,9 @@ public class EdgeWeightMatrix extends DistanceTable {
 		
 		Queue<Double> entries = new LinkedList<Double>();
 		
-		for (int i = 0; i < dimension - offset; i++) {
+		for (int i = 0; i < size - offset; i++) {
 			if (EdgeWeightFormat.FULL_MATRIX.equals(format)) {
-				for (int j = 0; j < dimension; j++) {
+				for (int j = 0; j < size; j++) {
 					if (entries.isEmpty()) {
 						readNextLine(reader, entries);
 					}
@@ -63,7 +94,7 @@ public class EdgeWeightMatrix extends DistanceTable {
 						EdgeWeightFormat.UPPER_COL.equals(format) ||
 						EdgeWeightFormat.UPPER_DIAG_COL.equals(format) ||
 						EdgeWeightFormat.UPPER_DIAG_ROW.equals(format)) {
-					for (int j = 0; j < dimension - offset - i; j++) {
+					for (int j = 0; j < size - offset - i; j++) {
 						if (entries.isEmpty()) {
 							readNextLine(reader, entries);
 						}
@@ -94,8 +125,8 @@ public class EdgeWeightMatrix extends DistanceTable {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		for (int i = 0; i < dimension; i++) {
-			for (int j = 0; j < dimension; j++) {
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
 				if (j > 0) {
 					sb.append(' ');
 				}
@@ -111,9 +142,9 @@ public class EdgeWeightMatrix extends DistanceTable {
 	
 	@Override
 	public int[] listNodes() {
-		int[] nodes = new int[dimension];
+		int[] nodes = new int[size];
 		
-		for (int i = 1; i <= dimension; i++) {
+		for (int i = 1; i <= size; i++) {
 			nodes[i-1] = i;
 		}
 		
@@ -123,9 +154,13 @@ public class EdgeWeightMatrix extends DistanceTable {
 	@Override
 	public int[] getNeighborsOf(int id) {
 		int index = 0;
-		int[] neighbors = new int[dimension-1];
+		int[] neighbors = new int[size-1];
 		
-		for (int i = 1; i <= dimension; i++) {
+		if ((id < 1) || (id > size)) {
+			throw new IllegalArgumentException("no node with identifier " + id);
+		}
+		
+		for (int i = 1; i <= size; i++) {
 			if (i != id) {
 				neighbors[index++] = i;
 			}
@@ -136,6 +171,16 @@ public class EdgeWeightMatrix extends DistanceTable {
 
 	@Override
 	public double getDistanceBetween(int id1, int id2) {
+		if ((id1 < 1) || (id1 > size)) {
+			throw new IllegalArgumentException("no node with identifier " +
+					id1);
+		}
+		
+		if ((id2 < 1) || (id2 > size)) {
+			throw new IllegalArgumentException("no node with identifier " +
+					id2);
+		}
+		
 		return matrix[id1-1][id2-1];
 	}
 

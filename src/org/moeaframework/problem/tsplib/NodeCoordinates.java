@@ -5,23 +5,55 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Stores the nodes in a TSPLIB problem instance and provides methods for 
+ * calculating the distances between nodes.
+ */
 public class NodeCoordinates extends DistanceTable {
 	
-	private final int dimension;
+	/**
+	 * The number of nodes to load into this problem instance.
+	 */
+	private final int size;
 	
+	/**
+	 * The type of coordinates, used to ensure the TSPLIB problem instance is
+	 * parsed correctly.
+	 */
 	private final NodeCoordType type;
 	
+	/**
+	 * The distance function.
+	 */
 	private final DistanceFunction distanceFunction;
 
+	/**
+	 * The mapping from identifiers to nodes.
+	 */
 	private final Map<Integer, Node> nodes;
 	
-	public NodeCoordinates(int dimension, EdgeWeightType edgeWeightType) {
-		this(dimension, edgeWeightType.getNodeCoordType(), edgeWeightType.getDistanceFunction());
+	/**
+	 * Constructs a new, empty node coordinates instance.
+	 * 
+	 * @param size the number of nodes to load into this problem instance
+	 * @param edgeWeightType the edge weight type
+	 */
+	public NodeCoordinates(int size, EdgeWeightType edgeWeightType) {
+		this(size, edgeWeightType.getNodeCoordType(),
+				edgeWeightType.getDistanceFunction());
 	}
 	
-	public NodeCoordinates(int dimension, NodeCoordType type, DistanceFunction distanceFunction) {
+	/**
+	 * Constructs a new, empty node coordinates instance.
+	 * 
+	 * @param size the number of nodes to load into this problem instance
+	 * @param type the type of coordinates (i.e., 2D or 3D)
+	 * @param distanceFunction the distance function
+	 */
+	public NodeCoordinates(int size, NodeCoordType type,
+			DistanceFunction distanceFunction) {
 		super();
-		this.dimension = dimension;
+		this.size = size;
 		this.type = type;
 		this.distanceFunction = distanceFunction;
 		
@@ -30,12 +62,13 @@ public class NodeCoordinates extends DistanceTable {
 	
 	@Override
 	public void load(BufferedReader reader) throws IOException {
-		for (int i = 0; i < dimension; i++) {
+		for (int i = 0; i < size; i++) {
 			String line = reader.readLine();
 			String[] tokens = line.trim().split("\\s+");
 
 			if (tokens.length != type.getLength() + 1) {
-				throw new IOException("invalid number of tokens for node entry");
+				throw new IOException(
+						"invalid number of tokens for node entry");
 			}
 
 			double[] position = new double[type.getLength()];
@@ -49,22 +82,48 @@ public class NodeCoordinates extends DistanceTable {
 		}
 	}
 	
-	public void add(Node node) {
+	/**
+	 * Adds the specified node to this problem instance.  If a node with the
+	 * same identifier already exists, the previous node will be replaced.
+	 * 
+	 * @param node the node to add
+	 */
+	protected void add(Node node) {
 		nodes.put(node.getId(), node);
 	}
 	
+	/**
+	 * Returns the node with the specified identifier.
+	 * 
+	 * @param id the identifier of the node to return
+	 * @return the node with the specified identifier
+	 */
 	public Node get(int id) {
 		return nodes.get(id);
 	}
 	
-	public void remove(int id) {
+	/**
+	 * Removes the node with the specified identifier from this problem
+	 * instance.
+	 * 
+	 * @param id the identifier of the node to remove
+	 */
+	protected void remove(int id) {
 		nodes.remove(id);
 	}
 	
-	public void clear() {
+	/**
+	 * Removes all nodes from this problem instance.
+	 */
+	protected void clear() {
 		nodes.clear();
 	}
 	
+	/**
+	 * Returns the number of nodes that this instance contains.
+	 * 
+	 * @return
+	 */
 	public int size() {
 		return nodes.size();
 	}
@@ -72,7 +131,7 @@ public class NodeCoordinates extends DistanceTable {
 	@Override
 	public int[] listNodes() {
 		int index = 0;
-		int[] result = new int[dimension];
+		int[] result = new int[size];
 		
 		for (Node node : nodes.values()) {
 			result[index++] = node.getId();
@@ -84,10 +143,10 @@ public class NodeCoordinates extends DistanceTable {
 	@Override
 	public int[] getNeighborsOf(int id) {
 		int index = 0;
-		int[] neighbors = new int[dimension-1];
+		int[] neighbors = new int[size-1];
 		
 		if (!nodes.containsKey(id)) {
-			throw new IllegalArgumentException("no node with identifier");
+			throw new IllegalArgumentException("no node with identifier " + id);
 		}
 		
 		for (Node node : nodes.values()) {
@@ -104,8 +163,14 @@ public class NodeCoordinates extends DistanceTable {
 		Node node1 = get(id1);
 		Node node2 = get(id2);
 		
-		if ((node1 == null) || (node2 == null)) {
-			throw new IllegalArgumentException("no node with identifier");
+		if (node1 == null) {
+			throw new IllegalArgumentException("no node with identifier " +
+					id1);
+		}
+		
+		if (node2 == null) {
+			throw new IllegalArgumentException("no node with identifier " +
+					id2);
 		}
 		
 		return distanceFunction.distance(get(id1), get(id2));
