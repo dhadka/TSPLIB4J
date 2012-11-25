@@ -32,32 +32,88 @@ public class TSPProblem {
 	 */
 	private int dimension;
 	
+	/**
+	 * The truck capacity in CVRP problem instances.
+	 */
 	private int capacity;
 	
+	/**
+	 * The way edge weights are specified.
+	 */
 	private EdgeWeightType edgeWeightType;
 	
+	/**
+	 * The format of the edge weight matrix when explicit weights are used; or
+	 * {@code null} if edge weights are not explicit.
+	 */
 	private EdgeWeightFormat edgeWeightFormat;
 	
+	/**
+	 * The format of edge data; or {@code null} if edge data is not explicitly
+	 * defined.
+	 */
 	private EdgeDataFormat edgeDataFormat;
 	
+	/**
+	 * The format of node coordinate data.
+	 */
 	private NodeCoordType nodeCoordinateType;
 	
+	/**
+	 * The way graphical displays of the data should be generated.
+	 */
 	private DisplayDataType displayDataType;
 	
+	/**
+	 * The distance table that defines the nodes, edges, and weights for this
+	 * problem instance.
+	 */
 	private DistanceTable distanceTable;
 	
+	/**
+	 * The data used to graphically display the nodes; or {@code null} if the
+	 * display data is not explicitly defined.
+	 */
 	private NodeCoordinates displayData;
 	
+	/**
+	 * The edges that are required in each solution to this problem instance.
+	 */
 	private FixedEdges fixedEdges;
 	
+	/**
+	 * The solutions to this problem instance.
+	 */
 	private List<Tour> tours;
 	
+	/**
+	 * Constructs a new, empty TSPLIB problem instance.
+	 */
 	public TSPProblem() {
 		super();
 		
 		tours = new ArrayList<Tour>();
 	}
 	
+	/**
+	 * Constructs a TSPLIB problem instance from the specified TSPLIB file.
+	 * 
+	 * @param file the TSPLIB file defining the problem
+	 * @throws IOException if an I/O error occurred while loading the TSPLIB
+	 *         file
+	 */
+	public TSPProblem(File file) throws IOException {
+		this();
+		load(file);
+	}
+	
+	/**
+	 * Loads a problem instance from the specified TSPLIB file.
+	 * 
+	 * @param file the TSPLIB file defining the problem
+	 * @throws IOException if an I/O error occurred while loading the TSPLIB
+	 *         file
+	 */
 	public void load(File file) throws IOException {
 		BufferedReader reader = null;
 		String line = null;
@@ -140,10 +196,27 @@ public class TSPProblem {
 		}
 	}
 	
+	/**
+	 * Adds a solution to this TSPLIB problem instance.  This method does not
+	 * verify that the solution has all required edges; the caller must ensure
+	 * this condition holds.
+	 * 
+	 * @param tour the solution to add
+	 */
 	public void addTour(Tour tour) {
 		tours.add(tour);
 	}
 	
+	/**
+	 * Adds a solution to this TSPLIB problem instance that is defined in a
+	 * separate file.  This method does not verify that the solution is a
+	 * valid tour for this problem instance; the caller must ensure this
+	 * condition holds.
+	 * 
+	 * @param file the file containing a solution to this TSPLIB problem
+	 *        instance
+	 * @throws IOException if an I/O error occurred while loading the tour
+	 */
 	public void addTour(File file) throws IOException {
 		TSPProblem problem = new TSPProblem();
 		problem.load(file);
@@ -155,58 +228,139 @@ public class TSPProblem {
 		}
 	}
 	
+	/**
+	 * Returns the name of this problem instance.
+	 * 
+	 * @return the name of this problem instance
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Returns the type of this problem instance.
+	 * 
+	 * @return the type of this problem instance
+	 */
 	public DataType getDataType() {
 		return dataType;
 	}
 
+	/**
+	 * Returns any comments about this problem instance.
+	 * 
+	 * @return any comments about this problem instance
+	 */
 	public String getComment() {
 		return comment;
 	}
 
+	/**
+	 * Returns the number of nodes defined by this problem instance.
+	 * 
+	 * @return the number of nodes defined by this problem instance
+	 */
 	public int getDimension() {
 		return dimension;
 	}
 
+	/**
+	 * Returns the truck capacity in CVRP problem instances.  The return value
+	 * is undefined if the data type is not {@code CVRP}.
+	 * 
+	 * @return the truck capacity in CVRP problem instances
+	 */
 	public int getCapacity() {
 		return capacity;
 	}
 
+	/**
+	 * Returns the way edge weights are specified.
+	 * 
+	 * @return the way edge weights are specified
+	 */
 	public EdgeWeightType getEdgeWeightType() {
 		return edgeWeightType;
 	}
 
+	/**
+	 * Returns the format of the edge weight matrix when explicit weights are
+	 * used; or {@code null} if edge weights are not explicit.
+	 * 
+	 * @return the format of the edge weight matrix when explicit weights are
+	 *         used; or {@code null} if edge weights are not explicit
+	 */
 	public EdgeWeightFormat getEdgeWeightFormat() {
 		return edgeWeightFormat;
 	}
 
+	/**
+	 * Returns the format of edge data; or {@code null} if edge data is not
+	 * explicitly defined.
+	 * 
+	 * @return the format of edge data; or {@code null} if edge data is not
+	 *         explicitly defined
+	 */
 	public EdgeDataFormat getEdgeDataFormat() {
 		return edgeDataFormat;
 	}
 
+	/**
+	 * Returns the format of node coordinate data.
+	 * 
+	 * @return the format of node coordinate data
+	 */
 	public NodeCoordType getNodeCoordinateType() {
 		return nodeCoordinateType;
 	}
 
+	/**
+	 * Returns the way graphical displays of the data should be generated.
+	 * 
+	 * @return the way graphical displays of the data should be generated
+	 */
 	public DisplayDataType getDisplayDataType() {
 		return displayDataType;
 	}
 
+	/**
+	 * Returns the distance table that defines the nodes, edges, and weights
+	 * for this problem instance.
+	 * 
+	 * @return the distance table that defines the nodes, edges, and weights
+	 *         for this problem instance
+	 */
 	public DistanceTable getDistanceTable() {
 		return distanceTable;
 	}
 
+	/**
+	 * Returns the data used to graphically display the nodes; or {@code null}
+	 * if the display data is not explicitly defined.
+	 * 
+	 * @return the data used to graphically display the nodes; or {@code null}
+	 *         if the display data is not explicitly defined
+	 */
 	public NodeCoordinates getDisplayData() {
 		return displayData;
 	}
 
+	/**
+	 * Returns the edges that are required in each solution to this problem
+	 * instance.
+	 * 
+	 * @return the edges that are required in each solution to this problem
+	 * instance
+	 */
 	public FixedEdges getFixedEdges() {
 		return fixedEdges;
 	}
 
+	/**
+	 * Returns the solutions to this problem instance.
+	 * 
+	 * @return the solutions to this problem instance
+	 */
 	public List<Tour> getTours() {
 		return tours;
 	}

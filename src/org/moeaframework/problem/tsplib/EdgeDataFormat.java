@@ -1,5 +1,8 @@
 package org.moeaframework.problem.tsplib;
 
+/**
+ * Enumeration of the formats in which edge data is specified.
+ */
 public enum EdgeDataFormat {
 	
 	/**
