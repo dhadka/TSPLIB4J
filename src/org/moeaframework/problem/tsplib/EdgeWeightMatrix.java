@@ -109,7 +109,7 @@ public class EdgeWeightMatrix extends DistanceTable {
 			
 			break;
 		case UPPER_ROW:
-			for (int i = 0; i < size; i++) {
+			for (int i = 0; i < size-1; i++) {
 				for (int j = i+1; j < size; j++) {
 					if (entries.isEmpty()) {
 						readNextLine(reader, entries);
