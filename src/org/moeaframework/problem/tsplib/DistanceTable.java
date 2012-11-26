@@ -30,6 +30,13 @@ import java.io.IOException;
 public abstract class DistanceTable {
 	
 	/**
+	 * Constructs a new distance table instance.
+	 */
+	public DistanceTable() {
+		super();
+	}
+	
+	/**
 	 * Returns the identifiers of all nodes in this distance table.
 	 * 
 	 * @return the identifiers of all nodes in this distance table
