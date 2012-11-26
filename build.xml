@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<!--
+Copyright 2012 David Hadka
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to
+deal in the Software without restriction, including without limitation the
+rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+sell copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+IN THE SOFTWARE.
+-->
+<project name="TSPLIB4J" basedir="." default="package">
+	
+	<!-- Loads properties from properties file and environment -->
+	<property file="build.properties" />
+	<property environment="env" />
+	
+	<!-- Path to Java JDK source code (optional for inheriting javadoc comments) -->
+	<property name="jdk.source" value="../OpenJDK${java.major}/jdk/src/share/classes" />
+	
+	<!-- URL to Java API -->
+	<property name="jdk.api" value="http://download.oracle.com/javase/${java.major}/docs/api/" />
+	
+	<!-- The working folder for these Ant build targets -->
+	<property name="build" value="build" />
+	
+	<!-- The folder where compiled files ready for distribution are saved -->
+	<property name="dist" value="dist" />
+	
+	<!-- The folder where generated javadoc files are saved -->
+	<property name="javadoc" value="javadoc" />
+	
+	<!-- The base/root folder for organizing distributions -->
+	<property name="base" value="${build}/${shortname}-${version}" />
+	
+	<target name="-setup">
+		<tstamp />
+
+		<delete dir="${build}" />
+		<mkdir dir="${build}" />
+		<mkdir dir="${base}" />
+	</target>
+
+	<!-- Generates the Javadoc webpages -->
+	<target name="-javadoc">
+		<mkdir dir="${base}/${javadoc}" />
+	
+		<javadoc sourcepath="src;${jdk.source}"
+				destdir="${base}/${javadoc}" notree="true"
+				packagenames="org.moeaframework.problem.tsplib.*"
+				maxmemory="256m" noindex="true" nohelp="true"
+				overview="src/overview.html"
+				windowtitle="${name} ${version} API">
+			<header><![CDATA[${javadoc.title}]]></header>
+			<doctitle><![CDATA[${javadoc.title}]]></doctitle>
+			<footer><![CDATA[${javadoc.title}]]></footer>
+			<bottom><![CDATA[${javadoc.bottom}]]></bottom>
+			<link href="${jdk.api}" />
+		</javadoc>
+	</target>
+
+	<!-- Builds the TSPLIB4J JAR file -->
+	<target name="-build">
+		<mkdir dir="${build}/bin" />
+		
+		<javac destdir="${build}/bin" srcdir="src" debug="${java.debug}"
+				excludes="**/package-info.java"
+				includeantruntime="false"
+				encoding="UTF-8" />
+
+		<copy todir="${build}/bin/META-INF">
+			<fileset file="COPYING" />
+		</copy>
+
+		<manifest file="${build}/bin/META-INF/MANIFEST.MF">
+			<section name="org/moeaframework/problem/tsplib">
+				<attribute name="Specification-Title" value="TSPLIB4J" />
+				<attribute name="Specification-Version" value="${version}" />
+				<attribute name="Specification-Vendor" value="https://github.com/dhadka/TSPLIB4J" />
+				<attribute name="Implementation-Title" value="org.moeaframework.problem.tsplib" />
+				<attribute name="Implementation-Version" value="${version}" />
+				<attribute name="Implementation-Vendor" value="https://github.com/dhadka/TSPLIB4J" />
+			</section>
+		</manifest>
+
+		<copy todir="${build}/bin">
+			<fileset excludes="**/*.java,overview.html" dir="src" />
+		</copy>
+
+		<jar basedir="${build}/bin" manifest="${build}/bin/META-INF/MANIFEST.MF"
+				jarfile="${base}/${shortname}-${version}.jar" />
+		
+		<delete dir="${build}/bin" />
+	</target>
+
+	<!-- Packages the TSPLIB source code, libraries and required files  -->
+	<target name="package" depends="-setup, -build, -javadoc"
+			description="Creates the distribution">
+		<copy todir="${base}">
+			<fileset dir=".">
+				<include name="src/**" />
+				<include name="${javadoc}/**" />
+				<include name="build.properties" />
+				<include name="build.xml" />
+				<include name="README.md" />
+				<include name="COPYING" />
+				<exclude name="bin/**" />
+				<exclude name="dist/**" />
+				<exclude name="build/**" />
+				<exclude name="data/**" />
+				<exclude name=".classpath" />
+				<exclude name=".project" />
+				<exclude name=".gitignore" />
+			</fileset>
+		</copy>
+
+		<tar destfile="${dist}/${shortname}-${version}.tar.gz" 
+				basedir="${build}" compression="gzip" longfile="gnu" />
+	</target>
+	
+</project>
