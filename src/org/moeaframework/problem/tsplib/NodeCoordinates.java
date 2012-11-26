@@ -142,7 +142,7 @@ public class NodeCoordinates extends DistanceTable {
 	/**
 	 * Returns the number of nodes that this instance contains.
 	 * 
-	 * @return
+	 * @return the number of nodes that this instance contains
 	 */
 	public int size() {
 		return nodes.size();

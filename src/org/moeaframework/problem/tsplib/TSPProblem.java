@@ -158,6 +158,12 @@ public class TSPProblem {
 					distanceTable = new NodeCoordinates(dimension, edgeWeightType);
 					distanceTable.load(reader);
 				} else if (line.equals("EDGE_WEIGHT_SECTION")) {
+					if (DataType.SOP.equals(dataType)) {
+						// for whatever reason, SOP instances have an extra line with
+						// the node count
+						reader.readLine();
+					}
+					
 					distanceTable = new EdgeWeightMatrix(dimension, edgeWeightFormat);
 					distanceTable.load(reader);
 				} else if (line.equals("EDGE_DATA_SECTION")) {

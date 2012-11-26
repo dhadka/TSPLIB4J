@@ -22,39 +22,55 @@ package org.moeaframework.problem.tsplib;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
-public class TestHCP {
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+public class TestVRP {
 	
-	public static void main(String[] args) throws IOException {
-		String[] instances = {
-				"alb1000",
-				"alb2000",
-				"alb3000a",
-				"alb3000b",
-				"alb3000c",
-				"alb3000d",
-				"alb3000e",
-				"alb4000",
-				"alb5000"
-		};
-		
+	private static Set<String> instances;
+	
+	@BeforeClass
+	public static void initializeInstances() {
+		instances = new HashSet<String>();
+		instances.add("att48");
+		instances.add("eil7");
+		instances.add("eil13");
+		instances.add("eil22");
+		instances.add("eil23");
+		instances.add("eil30");
+		instances.add("eil31");
+		instances.add("eil33");
+		instances.add("eil51");
+		instances.add("eilA76");
+		instances.add("eilA101");
+		instances.add("eilB76");
+		instances.add("eilB101");
+		instances.add("eilC76");
+		instances.add("eilD76");
+		instances.add("gil262");
+	}
+	
+	@AfterClass
+	public static void freeInstances() {
+		instances = null;
+	}
+	
+	@Test
+	public void test() throws IOException {
 		for (String instance : instances) {
-			File directory = new File("./data/hcp/");
-			File instanceData = new File(directory, instance + ".hcp");
-			File optimalTour = new File(directory, instance + ".opt.tour");
+			File directory = new File("./data/vrp/");
+			File instanceData = new File(directory, instance + ".vrp");
 			
-			if (instanceData.exists() && optimalTour.exists()) {
-				TSPProblem problem = new TSPProblem(instanceData);
-				problem.addTour(optimalTour);
+			if (instanceData.exists()) {
+				System.out.println(instance);
 				
-				for (Tour tour : problem.getTours()) {
-					System.out.print(instance);
-					System.out.print(' ');
-					System.out.print(tour.isHamiltonianCycle(problem));
-					System.out.print(' ');
-					System.out.print(tour.containsFixedEdges(problem));
-					System.out.println();
-				}
+				TSPProblem problem = new TSPProblem(instanceData);
+				Assert.assertEquals(DataType.CVRP, problem.getDataType());
 			}
 		}
 	}
