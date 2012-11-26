@@ -144,7 +144,7 @@ public class TSPProblem {
 					Tour tour = new Tour();
 					tour.load(reader);
 					tours.add(tour);
-				} else if (line.equals("FIXED_EDGES_SECTION")) {
+				} else if (line.equals("FIXED_EDGES_SECTION") || line.matches("^\\s*FIXED_EDGES\\s*\\:\\s*$")) {
 					fixedEdges = new EdgeData(dimension, EdgeDataFormat.EDGE_LIST);
 					fixedEdges.load(reader);
 				} else if (line.equals("EOF")) {
