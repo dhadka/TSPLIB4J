@@ -30,6 +30,10 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+/**
+ * Tests sequential ordering problem (SOP) instances.  This only tests if the
+ * instances load without error, not for correctness.
+ */
 public class TestSOP {
 	
 	private static Set<String> instances;

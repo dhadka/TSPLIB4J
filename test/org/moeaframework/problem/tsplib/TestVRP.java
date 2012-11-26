@@ -30,6 +30,10 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+/**
+ * Tests vehicle routing problem (VRP) instances.  This only tests if the
+ * instance loads correctly, not for correctness.
+ */
 public class TestVRP {
 	
 	private static Set<String> instances;

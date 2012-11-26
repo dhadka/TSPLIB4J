@@ -30,6 +30,9 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+/**
+ * Tests traveling salesman problem (TSP) instances.
+ */
 public class TestTSP {
 	
 	private static Map<String, Integer> instances;

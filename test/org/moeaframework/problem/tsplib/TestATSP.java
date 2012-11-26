@@ -30,6 +30,10 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+/**
+ * Tests asymmetric traveling salesman problem (ATOP) instances.  This only
+ * tests if the instances loaded without error, not for correctness.
+ */
 public class TestATSP {
 	
 	private static Set<String> instances;

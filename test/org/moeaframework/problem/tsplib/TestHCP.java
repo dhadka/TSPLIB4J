@@ -30,6 +30,9 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+/**
+ * Tests Hamiltonian cycle problem (HCP) instances.  
+ */
 public class TestHCP {
 	
 	private static Set<String> instances;
