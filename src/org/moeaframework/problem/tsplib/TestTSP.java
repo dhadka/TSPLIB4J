@@ -127,8 +127,7 @@ public class TestTSP {
 			File optimalTour = new File(directory, key + ".opt.tour");
 			
 			if (instanceData.exists() && optimalTour.exists()) {
-				TSPProblem problem = new TSPProblem();
-				problem.load(instanceData);
+				TSPProblem problem = new TSPProblem(instanceData);
 				problem.addTour(optimalTour);
 				
 				for (Tour tour : problem.getTours()) {
@@ -152,8 +151,6 @@ public class TestTSP {
 						System.out.println("Match!");
 					}
 				}
-			} else {
-				//System.err.println(key + " missing instance data or optimal tour");
 			}
 		}
 	}

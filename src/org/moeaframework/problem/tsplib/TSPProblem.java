@@ -397,22 +397,4 @@ public class TSPProblem {
 		return vehicleRoutingTable;
 	}
 
-	public static void main(String[] args) throws IOException {
-//		TSPProblem problem = new TSPProblem(new File("./data/tsp/gr666.tsp"));
-//		problem.addTour(Tour.createCanonicalTour(problem.getDimension()));
-//
-//		for (Tour tour : problem.getTours()) {
-//			System.out.println(tour.distance(problem.getDistanceTable()));
-//		}
-		
-		TSPProblem problem = new TSPProblem(new File("./data/hcp/alb1000.hcp"));
-		problem.addTour(Tour.createCanonicalTour(problem.getDimension()));
-		problem.addTour(new File("./data/hcp/alb1000.opt.tour"));
-		
-		for (Tour tour : problem.getTours()) {
-			System.out.println(tour.isHamiltonianCycle(problem) + " " + 
-					tour.containsFixedEdges(problem));
-		}
-	}
-
 }
