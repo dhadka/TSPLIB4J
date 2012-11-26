@@ -12,7 +12,7 @@ Prerequisites:
   
 ### Setup
 
-Download any or all of the [TSPLIB problem instances](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/) problem instances.  It is recommended you follow the directory structure used in this project.  Create a data/ directory, and inside this directly create a folder for each problem instance.  The resulting structure should look like:
+First, create a data/ directory and the subfolders listed below.  Next, download any or all of the [TSPLIB problem instances](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/) problem instances.  Finally, extract the problem instances into the appropriate folder.
 
     data/atsp
     data/hcp
