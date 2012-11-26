@@ -3,13 +3,22 @@ A Java library for TSPLIB
 
 ### About TSPLIB4J:
 
-[TSPLIB](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/) is a collection of [Traveling Salesman Problem](http://en.wikipedia.org/wiki/Travelling_salesman_problem) instances and a file format for storing TSP instance data.  TSPLIB4J is a Java library for reading TSPLIB instance data.  TSPLIB4J is licensed under the MIT license.
+[TSPLIB](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/) is a collection of [traveling salesman](http://en.wikipedia.org/wiki/Travelling_salesman_problem), [vehicle routing](http://en.wikipedia.org/wiki/Vehicle_routing_problem), and [Hamiltonian cycle](http://en.wikipedia.org/wiki/Hamiltonian_path_problem) problem instances and a file format for storing instance data.  TSPLIB4J is a Java library for reading and processing TSPLIB instance data.  TSPLIB4J is licensed under the MIT license.
 
 Prerequisites:
 
   - Java 1.5 or later
-  - [TSPLIB problem instances](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/)
+  - [JUnit 4](http://www.junit.org/) to run test cases
+  
+### Setup
 
+Download any or all of the [TSPLIB problem instances](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/) problem instances.  It is recommended you follow the directory structure used in this project.  Create a data/ directory, and inside this directly create a folder for each problem instance.  The resulting structure should look like:
+
+    data/atsp
+    data/hcp
+    data/sop
+    data/tsp
+    data/vrp
 
 ### Traveling Salesman Problem:
 
