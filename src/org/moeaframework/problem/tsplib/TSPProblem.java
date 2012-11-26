@@ -87,6 +87,12 @@ public class TSPProblem {
 	private List<Tour> tours;
 	
 	/**
+	 * The demands and depot nodes for vehicle routing problems; or {@code null}
+	 * if this is not a vehicle routing problem instance.
+	 */
+	private VehicleRoutingTable vehicleRoutingTable;
+	
+	/**
 	 * Constructs a new, empty TSPLIB problem instance.
 	 */
 	public TSPProblem() {
@@ -147,6 +153,18 @@ public class TSPProblem {
 				} else if (line.equals("FIXED_EDGES_SECTION") || line.matches("^\\s*FIXED_EDGES\\s*\\:\\s*$")) {
 					fixedEdges = new EdgeData(dimension, EdgeDataFormat.EDGE_LIST);
 					fixedEdges.load(reader);
+				} else if (line.equals("DEMAND_SECTION")) {
+					if (vehicleRoutingTable == null) {
+						vehicleRoutingTable = new VehicleRoutingTable(dimension);
+					}
+					
+					vehicleRoutingTable.loadDemands(reader);
+				} else if (line.equals("DEPOT_SECTION")) {
+					if (vehicleRoutingTable == null) {
+						vehicleRoutingTable = new VehicleRoutingTable(dimension);
+					}
+					
+					vehicleRoutingTable.loadDepots(reader);
 				} else if (line.equals("EOF")) {
 					break;
 				} else {
@@ -366,6 +384,17 @@ public class TSPProblem {
 	 */
 	public List<Tour> getTours() {
 		return tours;
+	}
+
+	/**
+	 * Returns the demands and depot nodes for vehicle routing problems; or
+	 * {@code null} if this is not a vehicle routing problem instance.
+	 * 
+	 * @return the demands and depot nodes for vehicle routing problems; or
+	 *         {@code null} if this is not a vehicle routing problem instance
+	 */
+	public VehicleRoutingTable getVehicleRoutingTable() {
+		return vehicleRoutingTable;
 	}
 
 	public static void main(String[] args) throws IOException {
