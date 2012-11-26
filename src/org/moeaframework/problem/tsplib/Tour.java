@@ -71,15 +71,30 @@ public class Tour {
 	}
 	
 	/**
+	 * Returns the edges belonging to this tour.
+	 * 
+	 * @return the edges belonging to this tour
+	 */
+	public List<Edge> toEdges() {
+		List<Edge> result = new ArrayList<Edge>();
+		
+		for (int i = 0; i < nodes.size(); i++) {
+			result.add(new Edge(nodes.get(i), nodes.get((i+1) % nodes.size())));
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * Calculates and returns the total distance of this tour.  The total
 	 * distance includes the distance from the last node back to the first node
 	 * in the tour.
 	 * 
-	 * @param distanceTable the distance table that defines the distances
-	 *        between nodes
+	 * @param problem the TSPLIB problem instance this tour is a solution for
 	 * @return the total distance of this tour
 	 */
-	public double distance(DistanceTable distanceTable) {
+	public double distance(TSPProblem problem) {
+		DistanceTable distanceTable = problem.getDistanceTable();
 		double result = 0.0;
 		
 		for (int i = 0; i < nodes.size(); i++) {
@@ -91,16 +106,34 @@ public class Tour {
 	}
 	
 	/**
+	 * Returns {@code true} if this tour contains all the fixed edges required
+	 * by the TSPLIB problem instances; {@code false} otherwise.
+	 * 
+	 * @param problem the TSPLIB problem instance this tour is a solution for
+	 * @return {@code true} if this tour contains all the fixed edges required
+	 *         by the TSPLIB problem instances; {@code false} otherwise
+	 */
+	public boolean containsFixedEdges(TSPProblem problem) {
+		EdgeData fixedEdges = problem.getFixedEdges();
+		
+		if (fixedEdges == null) {
+			return true;
+		} else {
+			return toEdges().containsAll(fixedEdges.getEdges());
+		}
+	}
+	
+	/**
 	 * Returns {@code true} if this tour is a Hamiltonian cycle; {@code false}
 	 * otherwise.  A Hamiltonian cycle is a path through a graph that visits
 	 * every node exactly once.
 	 * 
-	 * @param distanceTable the distance table that defines the edges in the
-	 *        graph
+	 * @param problem the TSPLIB problem instance this tour is a solution for
 	 * @return {@code true} if this tour is a Hamiltonian cycle; {@code false}
 	 *         otherwise
 	 */
-	public boolean isHamiltonianCycle(DistanceTable distanceTable) {
+	public boolean isHamiltonianCycle(TSPProblem problem) {
+		DistanceTable distanceTable = problem.getDistanceTable();
 		Set<Integer> visited = new HashSet<Integer>();
 		
 		// scan through nodes to determine if any invalid edges are followed

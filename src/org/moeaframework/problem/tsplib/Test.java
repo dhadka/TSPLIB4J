@@ -132,7 +132,7 @@ public class Test {
 				problem.addTour(optimalTour);
 				
 				for (Tour tour : problem.getTours()) {
-					double tourLength = tour.distance(problem.getDistanceTable());
+					double tourLength = tour.distance(problem);
 					double optimalLength = optimalResults.get(key);
 					
 					System.out.print(key);

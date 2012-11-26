@@ -381,7 +381,8 @@ public class TSPProblem {
 		problem.addTour(new File("./data/hcp/alb1000.opt.tour"));
 		
 		for (Tour tour : problem.getTours()) {
-			System.out.println(tour.isHamiltonianCycle(problem.getDistanceTable()));
+			System.out.println(tour.isHamiltonianCycle(problem) + " " + 
+					tour.containsFixedEdges(problem));
 		}
 	}
 

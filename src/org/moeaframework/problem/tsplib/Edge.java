@@ -76,4 +76,48 @@ public class Edge {
 		}
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		
+		// since the edge is undirected, hashCode must not depend on the order
+		// of the identifier; this if condition ensures that hashCode is
+		// consistent with the equals method
+		if (id1 < id2) {
+			result = prime * result + id1;
+			result = prime * result + id2;
+		} else {
+			result = prime * result + id2;
+			result = prime * result + id1;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		
+		if (obj == null) {
+			return false;
+		}
+		
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		
+		Edge other = (Edge)obj;
+		
+		if ((id1 == other.id1) && (id2 == other.id2)) {
+			return true;
+		} else if ((id1 == other.id2) && (id2 == other.id1)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }
