@@ -138,6 +138,16 @@ public class EdgeData extends DistanceTable {
 		
 		edges.add(new Edge(id1, id2));
 	}
+	
+	/**
+	 * Returns the edges contained in this graph.  Changes to the returned
+	 * list will be reflected in this graph.
+	 * 
+	 * @return the edges contained in this graph
+	 */
+	public List<Edge> getEdges() {
+		return edges;
+	}
 
 	@Override
 	public int[] listNodes() {

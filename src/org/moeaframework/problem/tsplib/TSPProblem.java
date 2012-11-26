@@ -79,7 +79,7 @@ public class TSPProblem {
 	/**
 	 * The edges that are required in each solution to this problem instance.
 	 */
-	private FixedEdges fixedEdges;
+	private EdgeData fixedEdges;
 	
 	/**
 	 * The solutions to this problem instance.
@@ -145,7 +145,7 @@ public class TSPProblem {
 					tour.load(reader);
 					tours.add(tour);
 				} else if (line.equals("FIXED_EDGES_SECTION")) {
-					fixedEdges = new FixedEdges();
+					fixedEdges = new EdgeData(dimension, EdgeDataFormat.EDGE_LIST);
 					fixedEdges.load(reader);
 				} else if (line.equals("EOF")) {
 					break;
@@ -355,7 +355,7 @@ public class TSPProblem {
 	 * @return the edges that are required in each solution to this problem
 	 * instance
 	 */
-	public FixedEdges getFixedEdges() {
+	public EdgeData getFixedEdges() {
 		return fixedEdges;
 	}
 
