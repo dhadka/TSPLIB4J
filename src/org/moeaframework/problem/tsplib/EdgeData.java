@@ -78,7 +78,7 @@ public class EdgeData extends DistanceTable {
 				if (line.equals("-1")) {
 					break;
 				} else {
-					String[] tokens = line.trim().split("\\s+");
+					String[] tokens = line.split("\\s+");
 					int id1 = Integer.parseInt(tokens[0]);
 					int id2 = Integer.parseInt(tokens[1]);
 					addEdge(id1, id2);
@@ -114,7 +114,6 @@ public class EdgeData extends DistanceTable {
 		default:
 			throw new IllegalArgumentException("edge format not supported");
 		}
-		
 	}
 	
 	/**
