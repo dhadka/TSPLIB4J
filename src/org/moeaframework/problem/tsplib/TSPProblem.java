@@ -203,7 +203,11 @@ public class TSPProblem {
 					if (key.equals("NAME")) {
 						name = value;
 					} else if (key.equals("COMMENT")) {
-						comment = value;
+						if (comment == null) {
+							comment = value;
+						} else {
+							comment = comment + "\n" + value;
+						}
 					} else if (key.equals("TYPE")) {
 						dataType = DataType.valueOf(value);
 					} else if (key.equals("DIMENSION")) {
