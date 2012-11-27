@@ -193,6 +193,8 @@ public class TSPProblem {
 					vehicleRoutingTable.loadDepots(reader);
 				} else if (line.equals("EOF")) {
 					break;
+				} else if (line.isEmpty()) {
+					//do nothing
 				} else {
 					String[] tokens = line.split(":");
 					String key = tokens[0].trim();

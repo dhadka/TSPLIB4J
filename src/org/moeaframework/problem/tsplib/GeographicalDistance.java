@@ -49,7 +49,7 @@ public class GeographicalDistance extends DistanceFunction {
 	 * @param x the latitude or longitude value in the form {@code DDD.MM}
 	 * @return the geographical angle in radians
 	 */
-	private double toGeographical(double x) {
+	public static double toGeographical(double x) {
 		int deg = (int)(x);
 		double min = x - deg;
 		return PI * (deg + 5.0 * min / 3.0) / 180.0;
