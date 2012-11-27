@@ -37,6 +37,22 @@ First, create a data/ directory and the subfolders listed below.  Next, download
     for (Tour tour : problem.getTours()) {
     	System.out.println(tour.isHamiltonianCycle(problem));
     }
+    
+### Displaying Solutions
+
+    TSPProblem problem = new TSPProblem(new File("./data/tsp/gr120.tsp"));
+    problem.addTour(new File("./data/tsp/gr120.opt.tour"));
+    
+    TSPPanel panel = new TSPPanel(problem);
+    panel.displayTour(problem.getTours().get(0), Color.RED);
+		
+    JFrame frame = new JFrame(problem.getName());
+    frame.getContentPane().setLayout(new BorderLayout());
+    frame.getContentPane().add(panel, BorderLayout.CENTER);
+    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    frame.setSize(500, 400);
+    frame.setLocationRelativeTo(null);
+    frame.setVisible(true);
 
 
 Other Open Source Libraries

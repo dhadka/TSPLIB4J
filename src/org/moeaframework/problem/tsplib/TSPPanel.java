@@ -257,14 +257,9 @@ public class TSPPanel extends JPanel {
 		problem.addTour(new File("./data/tsp/gr120.opt.tour"));
 		
 		TSPPanel panel = new TSPPanel(problem);
+		panel.displayTour(problem.getTours().get(0), Color.RED);
 		
-		for (Tour tour : problem.getTours()) {
-			panel.displayTour(tour, Color.RED);
-		}
-		
-		panel.displayTour(Tour.createCanonicalTour(problem.getDimension()), Color.BLUE);
-		
-		JFrame frame = new JFrame();
+		JFrame frame = new JFrame(problem.getName());
 		frame.getContentPane().setLayout(new BorderLayout());
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
