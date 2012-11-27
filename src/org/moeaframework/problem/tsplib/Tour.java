@@ -23,6 +23,7 @@ package org.moeaframework.problem.tsplib;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -225,6 +226,8 @@ public class Tour {
 		
 		// if necessary, scan the other direction to see if tours are equal
 		if (!isEqual) {
+			isEqual = true;
+			
 			for (int i = 0; i < size; i++) {
 				if (get(i) != other.get((startingIndex-i+size) % size)) {
 					isEqual = false;
@@ -248,6 +251,35 @@ public class Tour {
 		
 		for (int i = 1; i <= length; i++) {
 			tour.nodes.add(i);
+		}
+		
+		return tour;
+	}
+	
+	/**
+	 * Returns a random tour with the given length.  A random tour will visit
+	 * every node exactly once.
+	 * 
+	 * @param length the number of nodes in the resulting tour
+	 * @return the random tour with the given length
+	 */
+	public static Tour createRandomTour(int length) {
+		Tour tour = createCanonicalTour(length);
+		Collections.shuffle(tour.nodes);
+		return tour;
+	}
+	
+	/**
+	 * Constructs a tour from the specified array.
+	 * 
+	 * @param entries the nodes visited in the tour
+	 * @return the tour constructed from the specified array
+	 */
+	public static Tour fromArray(int... entries) {
+		Tour tour = new Tour();
+		
+		for (int i = 0; i < entries.length; i++) {
+			tour.nodes.add(entries[i]);
 		}
 		
 		return tour;
