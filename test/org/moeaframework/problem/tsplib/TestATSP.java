@@ -68,7 +68,7 @@ public class TestATSP {
 	}
 	
 	@Test
-	public void test() throws IOException {
+	public void testLoad() throws IOException {
 		for (String instance : instances) {
 			File directory = new File("./data/atsp/");
 			File instanceData = new File(directory, instance + ".atsp");

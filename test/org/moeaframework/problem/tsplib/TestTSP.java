@@ -159,7 +159,22 @@ public class TestTSP {
 	}
 	
 	@Test
-	public void test() throws IOException {
+	public void testLoad() throws IOException {
+		for (String instance : instances.keySet()) {
+			File directory = new File("./data/tsp/");
+			File instanceData = new File(directory, instance + ".tsp");
+			
+			if (instanceData.exists()) {
+				System.out.println(instance);
+				
+				TSPProblem problem = new TSPProblem(instanceData);
+				Assert.assertEquals(DataType.TSP, problem.getDataType());
+			}
+		}
+	}
+	
+	@Test
+	public void testDistance() throws IOException {
 		for (String instance : instances.keySet()) {
 			File directory = new File("./data/tsp/");
 			File instanceData = new File(directory, instance + ".tsp");
@@ -169,8 +184,6 @@ public class TestTSP {
 				System.out.println(instance);
 				
 				TSPProblem problem = new TSPProblem(instanceData);
-				Assert.assertEquals(DataType.TSP, problem.getDataType());
-				
 				problem.addTour(optimalTour);
 				
 				for (Tour tour : problem.getTours()) {

@@ -65,7 +65,7 @@ public class TestVRP {
 	}
 	
 	@Test
-	public void test() throws IOException {
+	public void testLoad() throws IOException {
 		for (String instance : instances) {
 			File directory = new File("./data/vrp/");
 			File instanceData = new File(directory, instance + ".vrp");

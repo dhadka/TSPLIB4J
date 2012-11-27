@@ -57,7 +57,7 @@ public class TestHCP {
 	}
 	
 	@Test
-	public void test() throws IOException {
+	public void testLoad() throws IOException {
 		for (String instance : instances) {
 			File directory = new File("./data/hcp/");
 			File instanceData = new File(directory, instance + ".hcp");

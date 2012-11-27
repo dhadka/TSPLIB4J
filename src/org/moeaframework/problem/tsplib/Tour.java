@@ -181,6 +181,62 @@ public class Tour {
 	}
 	
 	/**
+	 * Returns {@code true} if this tour is equivalent to the specified tour;
+	 * {@code false} otherwise.  Two tours are considered equivalent if they
+	 * visit the same nodes in the same order.  This comparison ignores the
+	 * direction of the node traversal.
+	 * 
+	 * @param other the tour that is being compared
+	 * @return {@code true} if this tour is equivalent to the specified tour;
+	 *         {@code false} otherwise
+	 */
+	public boolean isEquivalent(Tour other) {
+		int size = size();
+		
+		// two equivalent tours must have the same length
+		if (size != other.size()) {
+			return false;
+		}
+		
+		// find index of matching node
+		int startingIndex = -1;
+		
+		for (int i = 0; i < size; i++) {
+			if (get(0) == other.get(i)) {
+				startingIndex = i;
+				break;
+			}
+		}
+		
+		// if for some reason no matching id was found
+		if (startingIndex == -1) {
+			return false;
+		}
+		
+		// scan one direction to see if tours are equal
+		boolean isEqual = true;
+		
+		for (int i = 0; i < size; i++) {
+			if (get(i) != other.get((startingIndex+i) % size)) {
+				isEqual = false;
+				break;
+			}
+		}
+		
+		// if necessary, scan the other direction to see if tours are equal
+		if (!isEqual) {
+			for (int i = 0; i < size; i++) {
+				if (get(i) != other.get((startingIndex-i+size) % size)) {
+					isEqual = false;
+					break;
+				}
+			}
+		}
+		
+		return isEqual;
+	}
+	
+	/**
 	 * Returns the canonical tour with the given length.  The canonical
 	 * tour visits the nodes in order, i.e., {@code 1, 2, 3, ..., length}.
 	 * 
