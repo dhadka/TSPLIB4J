@@ -20,6 +20,8 @@
  */
 package org.moeaframework.problem.tsplib;
 
+import java.util.Arrays;
+
 /**
  * Represents a node (i.e., city) or arbitrary dimension.
  */
@@ -76,6 +78,42 @@ public class Node {
 		}
 		
 		return sb.toString();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + Arrays.hashCode(position);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		
+		if (obj == null) {
+			return false;
+		}
+		
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		
+		Node other = (Node) obj;
+		
+		if (id != other.id) {
+			return false;
+		}
+		
+		if (!Arrays.equals(position, other.position)) {
+			return false;
+		}
+		
+		return true;
 	}
 
 }
