@@ -50,7 +50,7 @@ public class TSPPanel extends JPanel {
 	/**
 	 * The TSPLIB problem instance.
 	 */
-	private final TSPProblem problem;
+	private final TSPInstance problem;
 	
 	/**
 	 * The displayed tours and their display settings.
@@ -73,7 +73,7 @@ public class TSPPanel extends JPanel {
 	 * 
 	 * @param problem the TSPLIB problem instance
 	 */
-	public TSPPanel(TSPProblem problem) {
+	public TSPPanel(TSPInstance problem) {
 		super();
 		this.problem = problem;
 		
@@ -273,7 +273,7 @@ public class TSPPanel extends JPanel {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		TSPProblem problem = new TSPProblem(new File("./data/tsp/gr120.tsp"));
+		TSPInstance problem = new TSPInstance(new File("./data/tsp/gr120.tsp"));
 		problem.addTour(new File("./data/tsp/gr120.opt.tour"));
 		
 		TSPPanel panel = new TSPPanel(problem);

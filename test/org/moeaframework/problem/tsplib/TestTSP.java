@@ -167,7 +167,7 @@ public class TestTSP {
 			if (instanceData.exists()) {
 				System.out.println(instance);
 				
-				TSPProblem problem = new TSPProblem(instanceData);
+				TSPInstance problem = new TSPInstance(instanceData);
 				Assert.assertEquals(DataType.TSP, problem.getDataType());
 			}
 		}
@@ -183,7 +183,7 @@ public class TestTSP {
 			if (instanceData.exists() && optimalTour.exists()) {
 				System.out.println(instance);
 				
-				TSPProblem problem = new TSPProblem(instanceData);
+				TSPInstance problem = new TSPInstance(instanceData);
 				problem.addTour(optimalTour);
 				
 				for (Tour tour : problem.getTours()) {

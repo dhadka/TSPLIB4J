@@ -66,7 +66,7 @@ public class TestHCP {
 			if (instanceData.exists() && optimalTour.exists()) {
 				System.out.println(instance);
 				
-				TSPProblem problem = new TSPProblem(instanceData);
+				TSPInstance problem = new TSPInstance(instanceData);
 				Assert.assertEquals(DataType.HCP, problem.getDataType());
 				
 				problem.addTour(optimalTour);

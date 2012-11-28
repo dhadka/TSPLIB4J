@@ -114,7 +114,7 @@ public class Tour {
 	 * @param problem the TSPLIB problem instance this tour is a solution for
 	 * @return the total distance of this tour
 	 */
-	public double distance(TSPProblem problem) {
+	public double distance(TSPInstance problem) {
 		DistanceTable distanceTable = problem.getDistanceTable();
 		double result = 0.0;
 		
@@ -134,7 +134,7 @@ public class Tour {
 	 * @return {@code true} if this tour contains all the fixed edges required
 	 *         by the TSPLIB problem instances; {@code false} otherwise
 	 */
-	public boolean containsFixedEdges(TSPProblem problem) {
+	public boolean containsFixedEdges(TSPInstance problem) {
 		EdgeData fixedEdges = problem.getFixedEdges();
 		
 		if (fixedEdges == null) {
@@ -153,7 +153,7 @@ public class Tour {
 	 * @return {@code true} if this tour is a Hamiltonian cycle; {@code false}
 	 *         otherwise
 	 */
-	public boolean isHamiltonianCycle(TSPProblem problem) {
+	public boolean isHamiltonianCycle(TSPInstance problem) {
 		DistanceTable distanceTable = problem.getDistanceTable();
 		Set<Integer> visited = new HashSet<Integer>();
 		

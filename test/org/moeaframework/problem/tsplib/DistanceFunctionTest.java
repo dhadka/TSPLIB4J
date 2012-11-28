@@ -30,7 +30,7 @@ public class DistanceFunctionTest {
 
 	@Test
 	public void testPCB442() throws IOException {
-		TSPProblem problem = new TSPProblem(new File("./data/tsp/pcb442.tsp"));
+		TSPInstance problem = new TSPInstance(new File("./data/tsp/pcb442.tsp"));
 		problem.addTour(Tour.createCanonicalTour(problem.getDimension()));
 		
 		Assert.assertEquals(221440, problem.getTours().get(0).distance(problem), 0.5);
@@ -38,7 +38,7 @@ public class DistanceFunctionTest {
 	
 	@Test
 	public void testGR666() throws IOException {
-		TSPProblem problem = new TSPProblem(new File("./data/tsp/gr666.tsp"));
+		TSPInstance problem = new TSPInstance(new File("./data/tsp/gr666.tsp"));
 		problem.addTour(Tour.createCanonicalTour(problem.getDimension()));
 		
 		Assert.assertEquals(423710, problem.getTours().get(0).distance(problem), 0.5);
@@ -46,7 +46,7 @@ public class DistanceFunctionTest {
 	
 	@Test
 	public void testATT532() throws IOException {
-		TSPProblem problem = new TSPProblem(new File("./data/tsp/att532.tsp"));
+		TSPInstance problem = new TSPInstance(new File("./data/tsp/att532.tsp"));
 		problem.addTour(Tour.createCanonicalTour(problem.getDimension()));
 		
 		Assert.assertEquals(309636, problem.getTours().get(0).distance(problem), 0.5);

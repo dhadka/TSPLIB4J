@@ -99,7 +99,7 @@ public class TestSOP {
 			if (instanceData.exists()) {
 				System.out.println(instance);
 				
-				TSPProblem problem = new TSPProblem(instanceData);
+				TSPInstance problem = new TSPInstance(instanceData);
 				Assert.assertEquals(DataType.SOP, problem.getDataType());
 			}
 		}

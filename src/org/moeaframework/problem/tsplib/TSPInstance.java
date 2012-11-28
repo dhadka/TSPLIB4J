@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * A TSPLIB problem instance.
  */
-public class TSPProblem {
+public class TSPInstance {
 	
 	/**
 	 * The name of this problem instance.
@@ -115,7 +115,7 @@ public class TSPProblem {
 	/**
 	 * Constructs a new, empty TSPLIB problem instance.
 	 */
-	public TSPProblem() {
+	public TSPInstance() {
 		super();
 		
 		tours = new ArrayList<Tour>();
@@ -128,7 +128,7 @@ public class TSPProblem {
 	 * @throws IOException if an I/O error occurred while loading the TSPLIB
 	 *         file
 	 */
-	public TSPProblem(File file) throws IOException {
+	public TSPInstance(File file) throws IOException {
 		this();
 		load(file);
 	}
@@ -271,7 +271,7 @@ public class TSPProblem {
 	 * @throws IOException if an I/O error occurred while loading the tour
 	 */
 	public void addTour(File file) throws IOException {
-		TSPProblem problem = new TSPProblem();
+		TSPInstance problem = new TSPInstance();
 		problem.load(file);
 		
 		if (problem.getDataType().equals(DataType.TOUR)) {
