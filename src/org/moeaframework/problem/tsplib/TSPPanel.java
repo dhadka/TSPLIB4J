@@ -69,6 +69,12 @@ public class TSPPanel extends JPanel {
 	private Insets insets;
 	
 	/**
+	 * {@code true} if this graphical display should automatically repaint when
+	 * the displayed tours are changed; {@code false} otherwise.
+	 */
+	private boolean autoRepaint;
+	
+	/**
 	 * Constructs a new panel for displaying a TSPLIB problem instance.
 	 * 
 	 * @param problem the TSPLIB problem instance
@@ -84,11 +90,28 @@ public class TSPPanel extends JPanel {
 		tours = new LinkedHashMap<Tour, TourDisplaySetting>();
 		nodeWidth = 4.0;
 		insets = new Insets((int)nodeWidth, (int)nodeWidth, (int)nodeWidth, (int)nodeWidth);
+		autoRepaint = true;
 		
 		setBackground(Color.WHITE);
 		setForeground(Color.BLACK);
 	}
 	
+	/**
+	 * Set to {@code true} if this graphical display should automatically
+	 * repaint when the displayed tours are changed; {@code false} otherwise.
+	 * When {@code false}, the display will only change when {@link #repaint()}
+	 * is invoked or the component automatically repaints the panel.  This is
+	 * used to avoid unnecessary repaints when making many changes to this
+	 * display.
+	 * 
+	 * @param autoRepaint {@code true} if this graphical display should
+	 *        automatically repaint when the displayed tours are changed;
+	 *        {@code false} otherwise
+	 */
+	public void setAutoRepaint(boolean autoRepaint) {
+		this.autoRepaint = autoRepaint;
+	}
+
 	/**
 	 * Adds a tour to this graphical display.  The tour will be displayed using
 	 * the default color.
@@ -96,8 +119,13 @@ public class TSPPanel extends JPanel {
 	 * @param tour the tour to display
 	 */
 	public void displayTour(Tour tour) {
-		tours.put(tour, new TourDisplaySetting());
-		repaint();
+		synchronized (tours) {
+			tours.put(tour, new TourDisplaySetting());
+		}
+		
+		if (autoRepaint) {
+			repaint();
+		}
 	}
 	
 	/**
@@ -107,8 +135,13 @@ public class TSPPanel extends JPanel {
 	 * @param paint the paint settings
 	 */
 	public void displayTour(Tour tour, Paint paint) {
-		tours.put(tour, new TourDisplaySetting(paint));
-		repaint();
+		synchronized (tours) {
+			tours.put(tour, new TourDisplaySetting(paint));
+		}
+		
+		if (autoRepaint) {
+			repaint();
+		}
 	}
 	
 	/**
@@ -120,16 +153,26 @@ public class TSPPanel extends JPanel {
 	 * @param stroke the line stroke settings
 	 */
 	public void displayTour(Tour tour, Paint paint, Stroke stroke) {
-		tours.put(tour, new TourDisplaySetting(paint, stroke));
-		repaint();
+		synchronized (tours) {
+			tours.put(tour, new TourDisplaySetting(paint, stroke));
+		}
+		
+		if (autoRepaint) {
+			repaint();
+		}
 	}
 	
 	/**
 	 * Removes all tours shown in this display.
 	 */
 	public void clearTours() {
-		tours.clear();
-		repaint();
+		synchronized (tours) {
+			tours.clear();
+		}
+		
+		if (autoRepaint) {
+			repaint();
+		}
 	}
 	
 	/**
@@ -138,8 +181,13 @@ public class TSPPanel extends JPanel {
 	 * @param tour the tour to remove
 	 */
 	public void removeTour(Tour tour) {
-		tours.remove(tour);
-		repaint();
+		synchronized (tours) {
+			tours.remove(tour);
+		}
+		
+		if (autoRepaint) {
+			repaint();
+		}
 	}
 	
 	/**
@@ -149,7 +197,10 @@ public class TSPPanel extends JPanel {
 	 */
 	public void setNodeWidth(double nodeWidth) {
 		this.nodeWidth = nodeWidth;
-		repaint();
+		
+		if (autoRepaint) {
+			repaint();
+		}
 	}
 	
 	/**
@@ -161,7 +212,10 @@ public class TSPPanel extends JPanel {
 	 */
 	public void setInsets(Insets insets) {
 		this.insets = insets;
-		repaint();
+		
+		if (autoRepaint) {
+			repaint();
+		}
 	}
 	
 	/**
@@ -189,7 +243,7 @@ public class TSPPanel extends JPanel {
 	}
 
 	@Override
-	protected void paintComponent(Graphics g) {
+	protected synchronized void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
 		Graphics2D g2 = (Graphics2D)g;
@@ -231,26 +285,28 @@ public class TSPPanel extends JPanel {
 		double offsetY = (displayHeight - insets.top - insets.bottom - scale * (top - bottom)) / 2.0;
 		
 		// draw the tours
-		for (Entry<Tour, TourDisplaySetting> entry : tours.entrySet()) {
-			Tour tour = entry.getKey();
-			TourDisplaySetting displaySettings = entry.getValue();
-			
-			g2.setPaint(displaySettings.getPaint());
-			g2.setStroke(displaySettings.getStroke());
-			
-			for (int i = 0; i < tour.size(); i++) {
-				Node node1 = displayData.get(tour.get(i));
-				Node node2 = displayData.get(tour.get((i+1) % tour.size()));
-				double[] position1 = toDisplayCoordinates(node1, isGeographical);
-				double[] position2 = toDisplayCoordinates(node2, isGeographical);
+		synchronized (tours) {
+			for (Entry<Tour, TourDisplaySetting> entry : tours.entrySet()) {
+				Tour tour = entry.getKey();
+				TourDisplaySetting displaySettings = entry.getValue();
 				
-				Line2D line = new Line2D.Double(
-						displayWidth - (offsetX + scale * (position1[0] - left) + insets.left), 
-						displayHeight - (offsetY + scale * (position1[1] - bottom) + insets.bottom),
-						displayWidth - (offsetX + scale * (position2[0] - left) + insets.left),
-						displayHeight - (offsetY + scale * (position2[1] - bottom) + insets.bottom));
+				g2.setPaint(displaySettings.getPaint());
+				g2.setStroke(displaySettings.getStroke());
 				
-				g2.draw(line);
+				for (int i = 0; i < tour.size(); i++) {
+					Node node1 = displayData.get(tour.get(i));
+					Node node2 = displayData.get(tour.get((i+1) % tour.size()));
+					double[] position1 = toDisplayCoordinates(node1, isGeographical);
+					double[] position2 = toDisplayCoordinates(node2, isGeographical);
+					
+					Line2D line = new Line2D.Double(
+							displayWidth - (offsetX + scale * (position1[0] - left) + insets.left), 
+							displayHeight - (offsetY + scale * (position1[1] - bottom) + insets.bottom),
+							displayWidth - (offsetX + scale * (position2[0] - left) + insets.left),
+							displayHeight - (offsetY + scale * (position2[1] - bottom) + insets.bottom));
+					
+					g2.draw(line);
+				}
 			}
 		}
 		
