@@ -26,6 +26,10 @@ import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Tests the distance functions against the cases provided in the official
+ * TSPLIB documentation.
+ */
 public class DistanceFunctionTest {
 
 	@Test

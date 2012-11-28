@@ -23,6 +23,9 @@ package org.moeaframework.problem.tsplib;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Tests the {@link Tour} class.
+ */
 public class TourTest {
 	
 	@Test

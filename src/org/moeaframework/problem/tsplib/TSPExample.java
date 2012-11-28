@@ -22,12 +22,25 @@ import org.moeaframework.problem.AbstractProblem;
 
 /**
  * Demonstration of optimizing a TSP problem using the MOEA Framework
- * optimization library (http://www.moeaframework.org/).
+ * optimization library (http://www.moeaframework.org/).  A window will appear
+ * showing the progress of the optimization algorithm.  The window will contain
+ * a visual representation of the TSP problem instance, with a thick red line
+ * indicating the best tour found by the optimization algorithm.  Light gray
+ * lines are the other (sub-optimal) tours in the population.
  */
-public class TSPOptimization {
+public class TSPExample {
 	
+	/**
+	 * The color for population members.
+	 */
 	private static final Color lightGray = new Color(128, 128, 128, 64);
 	
+	/**
+	 * Converts a MOEA Framework solution to a {@link Tour}.
+	 * 
+	 * @param solution the MOEA Framework solution
+	 * @return the tour defined by the solution
+	 */
 	public static Tour toTour(Solution solution) {
 		int[] permutation = EncodingUtils.getPermutation(
 				solution.getVariable(0));
@@ -40,10 +53,24 @@ public class TSPOptimization {
 		return Tour.fromArray(permutation);
 	}
 	
+	/**
+	 * The optimization problem definition.  This is a 1 variable, 1 objective
+	 * optimization problem.  The single variable is a permutation that defines
+	 * the nodes visited by the salesman.
+	 */
 	public static class TSPProblem extends AbstractProblem {
 
+		/**
+		 * The TSP problem instance.
+		 */
 		private final TSPInstance instance;
 		
+		/**
+		 * Constructs a new optimization problem for the given TSP problem
+		 * instance.
+		 * 
+		 * @param instance the TSP problem instance
+		 */
 		public TSPProblem(TSPInstance instance) {
 			super(1, 1);
 			this.instance = instance;
@@ -66,6 +93,12 @@ public class TSPOptimization {
 		
 	}
 	
+	/**
+	 * Runs the example TSP optimization problem.
+	 * 
+	 * @param args the command line arguments; none are defined
+	 * @throws IOException if an I/O error occurred
+	 */
 	public static void main(String[] args) throws IOException {
 		// create the TSP problem instance and display panel
 		TSPInstance instance = new TSPInstance(
