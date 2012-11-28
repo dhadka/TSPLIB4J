@@ -75,7 +75,8 @@ public class GeographicalDistance extends DistanceFunction {
 		double q2 = Math.cos(latitude1 - latitude2);
 		double q3 = Math.cos(latitude1 + latitude2);
 		
-		return Math.floor(radius * Math.acos(0.5 * ((1.0 + q1)*q2 - (1.0 - q1)*q3)) + 1.0);
+		return Math.floor(radius *
+				Math.acos(0.5 * ((1.0 + q1)*q2 - (1.0 - q1)*q3)) + 1.0);
 	}
 
 }

@@ -109,7 +109,8 @@ public enum EdgeWeightType {
 		case ATT:
 			return new PseudoEuclideanDistance();
 		default:
-			throw new IllegalArgumentException("no distance function defined for " + this);
+			throw new IllegalArgumentException(
+					"no distance function defined for " + this);
 		}
 	}
 	
@@ -127,7 +128,8 @@ public enum EdgeWeightType {
 		case MAN_3D:
 			return NodeCoordType.THREED_COORDS;
 		default:
-			throw new IllegalArgumentException("no node coordinate type defined for " + this);
+			throw new IllegalArgumentException(
+					"no node coordinate type defined for " + this);
 		}
 	}
 

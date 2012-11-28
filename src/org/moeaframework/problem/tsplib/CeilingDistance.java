@@ -27,8 +27,8 @@ package org.moeaframework.problem.tsplib;
 public class CeilingDistance extends DistanceFunction {
 	
 	/**
-	 * Constructs a new Euclidean distance function with distances rounded up to
-	 * the nearest integer.
+	 * Constructs a new Euclidean distance function with distances rounded up
+	 * to the nearest integer.
 	 */
 	public CeilingDistance() {
 		super();
