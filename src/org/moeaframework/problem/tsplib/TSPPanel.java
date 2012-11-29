@@ -243,38 +243,45 @@ public class TSPPanel extends JPanel {
 	}
 
 	@Override
+	public void paint(Graphics g) {
+		synchronized(tours) {
+			super.paint(g);
+		}
+	}
+
+	@Override
 	protected synchronized void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
+
 		Graphics2D g2 = (Graphics2D)g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		
+
 		// get the display data
 		NodeCoordinates displayData = null;
-		
+
 		if (DisplayDataType.COORD_DISPLAY.equals(problem.getDisplayDataType())) {
 			displayData = (NodeCoordinates)problem.getDistanceTable();
 		} else {
 			displayData = problem.getDisplayData();
 		}
-		
+
 		// first determine bounds of the data
 		boolean isGeographical = EdgeWeightType.GEO.equals(problem.getEdgeWeightType());
 		double left = Double.POSITIVE_INFINITY;
 		double right = Double.NEGATIVE_INFINITY;
 		double bottom = Double.POSITIVE_INFINITY;
 		double top = Double.NEGATIVE_INFINITY;
-		
+
 		for (int i = 1; i <= displayData.size(); i++) {
 			Node node = displayData.get(i);
 			double[] position = toDisplayCoordinates(node, isGeographical);
-			
+
 			left = Math.min(left, position[0]);
 			right = Math.max(right, position[0]);
 			bottom = Math.min(bottom, position[1]);
 			top = Math.max(top, position[1]);
 		}
-		
+
 		// calculate the bounds of the drawing
 		int displayWidth = getWidth();
 		int displayHeight = getHeight();
@@ -283,46 +290,44 @@ public class TSPPanel extends JPanel {
 		double scale = Math.min(scaleX, scaleY);
 		double offsetX = (displayWidth - insets.right - insets.left - scale * (right - left)) / 2.0;
 		double offsetY = (displayHeight - insets.top - insets.bottom - scale * (top - bottom)) / 2.0;
-		
+
 		// draw the tours
-		synchronized (tours) {
-			for (Entry<Tour, TourDisplaySetting> entry : tours.entrySet()) {
-				Tour tour = entry.getKey();
-				TourDisplaySetting displaySettings = entry.getValue();
-				
-				g2.setPaint(displaySettings.getPaint());
-				g2.setStroke(displaySettings.getStroke());
-				
-				for (int i = 0; i < tour.size(); i++) {
-					Node node1 = displayData.get(tour.get(i));
-					Node node2 = displayData.get(tour.get((i+1) % tour.size()));
-					double[] position1 = toDisplayCoordinates(node1, isGeographical);
-					double[] position2 = toDisplayCoordinates(node2, isGeographical);
-					
-					Line2D line = new Line2D.Double(
-							displayWidth - (offsetX + scale * (position1[0] - left) + insets.left), 
-							displayHeight - (offsetY + scale * (position1[1] - bottom) + insets.bottom),
-							displayWidth - (offsetX + scale * (position2[0] - left) + insets.left),
-							displayHeight - (offsetY + scale * (position2[1] - bottom) + insets.bottom));
-					
-					g2.draw(line);
-				}
+		for (Entry<Tour, TourDisplaySetting> entry : tours.entrySet()) {
+			Tour tour = entry.getKey();
+			TourDisplaySetting displaySettings = entry.getValue();
+
+			g2.setPaint(displaySettings.getPaint());
+			g2.setStroke(displaySettings.getStroke());
+
+			for (int i = 0; i < tour.size(); i++) {
+				Node node1 = displayData.get(tour.get(i));
+				Node node2 = displayData.get(tour.get((i+1) % tour.size()));
+				double[] position1 = toDisplayCoordinates(node1, isGeographical);
+				double[] position2 = toDisplayCoordinates(node2, isGeographical);
+
+				Line2D line = new Line2D.Double(
+						displayWidth - (offsetX + scale * (position1[0] - left) + insets.left), 
+						displayHeight - (offsetY + scale * (position1[1] - bottom) + insets.bottom),
+						displayWidth - (offsetX + scale * (position2[0] - left) + insets.left),
+						displayHeight - (offsetY + scale * (position2[1] - bottom) + insets.bottom));
+
+				g2.draw(line);
 			}
 		}
-		
+
 		// draw the nodes
 		g2.setColor(getForeground());
-		
+
 		for (int i = 1; i <= displayData.size(); i++) {
 			Node node = displayData.get(i);
 			double[] position = toDisplayCoordinates(node, isGeographical);
-			
+
 			Ellipse2D point = new Ellipse2D.Double(
 					displayWidth - (offsetX + scale * (position[0] - left) + insets.left) - (nodeWidth / 2.0),
 					displayHeight - (offsetY + scale * (position[1] - bottom) + insets.bottom) - (nodeWidth / 2.0),
 					nodeWidth,
 					nodeWidth);
-			
+
 			g2.fill(point);
 			g2.draw(point);
 		}
