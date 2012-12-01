@@ -13,7 +13,7 @@ Prerequisites:
   
 ### Setup
 
-First, create a data/ directory and the subfolders listed below.  Next, download any or all of the [TSPLIB problem instances](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/) problem instances.  Finally, extract the problem instances into the appropriate folder.
+First, create a `data/` directory and the subfolders listed below.  Next, download any or all of the [TSPLIB problem instances](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/) problem instances.  Finally, extract the problem instances into the appropriate folder.
 
     data/atsp
     data/hcp
@@ -57,7 +57,7 @@ First, create a data/ directory and the subfolders listed below.  Next, download
     
 ### Optimization Example
 
-The TSPExample.java file provides an example of optimizing a traveling salesman problem using the [MOEA Framework](http://www.moeaframework.org) library.  To run this example, you must first download the [compiled binaries for the MOEA Framework](http://www.moeaframework.org/downloads.html).  Next, you'll need to include the .jar files in the lib directory when compiling and running the TSPLIB4J code.  Finally, run TSPExample.
+The `TSPExample.java` file provides an example of optimizing a traveling salesman problem using the [MOEA Framework](http://www.moeaframework.org) library.  To run this example, you must first download the [compiled binaries for the MOEA Framework](http://www.moeaframework.org/downloads.html).  Next, you'll need to include the `.jar` files in the `lib/` directory when compiling and running the TSPLIB4J code.  Finally, run TSPExample.  TSPExample creates a GUI showing the evolution of the optimal solution from the initial random population to the final optimal solution discovered by a genetic algorithm.  The current example solves the `data/tsp/pr76.tsp` problem instance.
 
 
 Other Open Source Libraries
