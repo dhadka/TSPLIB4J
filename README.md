@@ -9,6 +9,7 @@ Prerequisites:
 
   - Java 1.5 or later
   - [JUnit 4](http://www.junit.org/) to run test cases
+  - [MOEA Framework](http://www.moeaframework.org/) JAR files to run TSPExample
   
 ### Setup
 
@@ -53,9 +54,13 @@ First, create a data/ directory and the subfolders listed below.  Next, download
     frame.setSize(500, 400);
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
+    
+### Optimization Example
+
+The TSPExample.java file provides an example of optimizing a traveling salesman problem using the [MOEA Framework](http://www.moeaframework.org) library.  To run this example, you must first download the [compiled binaries for the MOEA Framework](http://www.moeaframework.org/downloads.html).  Next, you'll need to include the .jar files in the lib directory when compiling and running the TSPLIB4J code.  Finally, run TSPExample.
 
 
 Other Open Source Libraries
 ---
-  - [MOEA Framework](http://www.moeaframework.org)
-  - [DGantt](http://sourceforge.net/projects/dgantt/)
+  - [MOEA Framework](http://www.moeaframework.org) - A Free and Open Source Java Framework for Multiobjective Optimization
+  - [DGantt](http://sourceforge.net/projects/dgantt/) - A simple yet powerful Gantt chart library for Java 1.6 and later
