@@ -30,8 +30,8 @@ public class TourTest {
 	
 	@Test
 	public void testIsEquivalent1() {
-		Tour tour1 = Tour.fromArray(1, 5, 2, 3, 4);
-		Tour tour2 = Tour.fromArray(2, 3, 4, 1, 5);
+		Tour tour1 = Tour.createTour(1, 5, 2, 3, 4);
+		Tour tour2 = Tour.createTour(2, 3, 4, 1, 5);
 		
 		Assert.assertTrue(tour1.isEquivalent(tour2));
 		Assert.assertTrue(tour2.isEquivalent(tour1));
@@ -39,8 +39,8 @@ public class TourTest {
 	
 	@Test
 	public void testIsEquivalent2() {
-		Tour tour1 = Tour.fromArray(1, 5, 2, 3, 4);
-		Tour tour2 = Tour.fromArray(2, 5, 1, 4, 3);
+		Tour tour1 = Tour.createTour(1, 5, 2, 3, 4);
+		Tour tour2 = Tour.createTour(2, 5, 1, 4, 3);
 		
 		Assert.assertTrue(tour1.isEquivalent(tour2));
 		Assert.assertTrue(tour2.isEquivalent(tour1));
@@ -48,11 +48,20 @@ public class TourTest {
 	
 	@Test
 	public void testIsEquivalent3() {
-		Tour tour1 = Tour.fromArray(1, 5, 2, 3, 4);
-		Tour tour2 = Tour.fromArray(2, 3, 1, 4, 5);
+		Tour tour1 = Tour.createTour(1, 5, 2, 3, 4);
+		Tour tour2 = Tour.createTour(2, 3, 1, 4, 5);
 		
 		Assert.assertFalse(tour1.isEquivalent(tour2));
 		Assert.assertFalse(tour2.isEquivalent(tour1));
+	}
+	
+	@Test
+	public void testFromToArray() {
+		int[] expected = new int[] { 1, 5, 2, 3, 4 };
+		Tour tour = new Tour();
+		tour.fromArray(expected);
+		
+		Assert.assertArrayEquals(expected, tour.toArray());
 	}
 
 }

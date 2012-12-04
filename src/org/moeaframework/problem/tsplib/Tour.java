@@ -107,6 +107,34 @@ public class Tour {
 	}
 	
 	/**
+	 * Returns this tour as an array of integers.
+	 * 
+	 * @return this tour as an array of integers
+	 */
+	public int[] toArray() {
+		int[] result = new int[nodes.size()];
+		
+		for (int i = 0; i < nodes.size(); i++) {
+			result[i] = nodes.get(i);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Sets this tour equal to the specified array.
+	 * 
+	 * @param array the array of integers defining a tour
+	 */
+	public void fromArray(int... array) {
+		nodes.clear();
+		
+		for (int i = 0; i < array.length; i++) {
+			nodes.add(array[i]);
+		}
+	}
+	
+	/**
 	 * Calculates and returns the total distance of this tour.  The total
 	 * distance includes the distance from the last node back to the first node
 	 * in the tour.
@@ -275,13 +303,9 @@ public class Tour {
 	 * @param entries the nodes visited in the tour
 	 * @return the tour constructed from the specified array
 	 */
-	public static Tour fromArray(int... entries) {
+	public static Tour createTour(int... entries) {
 		Tour tour = new Tour();
-		
-		for (int i = 0; i < entries.length; i++) {
-			tour.nodes.add(entries[i]);
-		}
-		
+		tour.fromArray(entries);
 		return tour;
 	}
 

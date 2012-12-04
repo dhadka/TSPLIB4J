@@ -70,7 +70,24 @@ public class TSPExample {
 			permutation[i]++;
 		}
 		
-		return Tour.fromArray(permutation);
+		return Tour.createTour(permutation);
+	}
+	
+	/**
+	 * Saves a {@link Tour} into a MOEA Framework solution.
+	 * 
+	 * @param solution the MOEA Framework solution
+	 * @param tour the tour
+	 */
+	public static void fromTour(Solution solution, Tour tour) {
+		int[] permutation = tour.toArray();
+		
+		// decrement values to get permutation
+		for (int i = 0; i < permutation.length; i++) {
+			permutation[i]--;
+		}
+		
+		EncodingUtils.setPermutation(solution.getVariable(0), permutation);
 	}
 	
 	/**
@@ -85,6 +102,8 @@ public class TSPExample {
 		 */
 		private final TSPInstance instance;
 		
+		private final TSP2OptHeuristic heuristic;
+		
 		/**
 		 * Constructs a new optimization problem for the given TSP problem
 		 * instance.
@@ -94,11 +113,19 @@ public class TSPExample {
 		public TSPProblem(TSPInstance instance) {
 			super(1, 1);
 			this.instance = instance;
+			
+			heuristic = new TSP2OptHeuristic(instance);
 		}
 
 		@Override
 		public void evaluate(Solution solution) {
-			solution.setObjective(0, toTour(solution).distance(instance));
+			Tour tour = toTour(solution);
+			
+			// apply the heuristic, saving the modified tour
+			heuristic.apply(tour);
+			fromTour(solution, tour);
+
+			solution.setObjective(0, tour.distance(instance));
 		}
 
 		@Override
