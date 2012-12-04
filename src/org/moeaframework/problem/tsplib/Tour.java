@@ -82,13 +82,34 @@ public class Tour {
 	
 	/**
 	 * Returns the identifier of the node visited at the specified index.
+	 * Tours are cyclic, so specifying an index {@code < 0} or {@code >= size()}
+	 * is cycled through the tour, never causing an out-of-bounds exception.
 	 * 
 	 * @param index the index
-	 * @return the identifier of the node visisted at the specified index
-	 * @throws IndexOutOfBoundsException if the given index was out of bounds
+	 * @return the identifier of the node visited at the specified index
 	 */
 	public int get(int index) {
-		return nodes.get(index);
+		while (index < 0) {
+			index += nodes.size();
+		}
+		
+		return nodes.get(index % nodes.size());
+	}
+	
+	/**
+	 * Sets the identifier of the node visited at the specified index.  Tours
+	 * are cyclic, so setting an index {@code < 0} or {@code >= size()} is
+	 * cycled through the tour, never causing an out-of-bounds exception.
+	 * 
+	 * @param index the index
+	 * @param node the identifier of the node visited at the specified index
+	 */
+	private void set(int index, int node) {
+		while (index < 0) {
+			index += nodes.size();
+		}
+		
+		nodes.set(index % nodes.size(), node);
 	}
 	
 	/**
@@ -100,7 +121,7 @@ public class Tour {
 		List<Edge> result = new ArrayList<Edge>();
 		
 		for (int i = 0; i < nodes.size(); i++) {
-			result.add(new Edge(nodes.get(i), nodes.get((i+1) % nodes.size())));
+			result.add(new Edge(get(i), get(i+1)));
 		}
 		
 		return result;
@@ -147,8 +168,7 @@ public class Tour {
 		double result = 0.0;
 		
 		for (int i = 0; i < nodes.size(); i++) {
-			result += distanceTable.getDistanceBetween(nodes.get(i),
-					nodes.get((i+1) % nodes.size()));
+			result += distanceTable.getDistanceBetween(get(i), get(i+1));
 		}
 		
 		return result;
@@ -187,8 +207,8 @@ public class Tour {
 		
 		// scan through nodes to determine if any invalid edges are followed
 		for (int i = 0; i < nodes.size(); i++) {
-			int id1 = nodes.get(i);
-			int id2 = nodes.get((i+1) % nodes.size());
+			int id1 = get(i);
+			int id2 = get(i+1);
 			
 			if (visited.contains(id2)) {
 				return false;
@@ -207,6 +227,18 @@ public class Tour {
 		}
 		
 		return true;
+	}
+	
+	public void reverse(int i, int j) {
+		while (j < i) {
+			j += nodes.size();
+		}
+		
+		for (int k = 0; k < (j - i + 1) / 2; k++) {
+			int temp = get(i+k);
+			set(i+k, get(j-k));
+			set(j-k, temp);
+		}
 	}
 	
 	/**
@@ -246,7 +278,7 @@ public class Tour {
 		boolean isEqual = true;
 		
 		for (int i = 0; i < size; i++) {
-			if (get(i) != other.get((startingIndex+i) % size)) {
+			if (get(i) != other.get(startingIndex+i)) {
 				isEqual = false;
 				break;
 			}
@@ -257,7 +289,7 @@ public class Tour {
 			isEqual = true;
 			
 			for (int i = 0; i < size; i++) {
-				if (get(i) != other.get((startingIndex-i+size) % size)) {
+				if (get(i) != other.get(startingIndex-i)) {
 					isEqual = false;
 					break;
 				}

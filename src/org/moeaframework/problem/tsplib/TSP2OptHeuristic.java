@@ -30,38 +30,27 @@ public class TSP2OptHeuristic {
 	 * @param tour the tour that is modified by the 2-opt heuristic
 	 */
 	public void apply(Tour tour) {
-		int[] tourAsArray = tour.toArray();
-		apply(tourAsArray);
-		tour.fromArray(tourAsArray);
-	}
-	
-	/**
-	 * Applies the 2-opt heuristic to the specified tour.
-	 * 
-	 * @param tour the tour that is modified by the 2-opt heuristic
-	 */
-	public void apply(int[] tour) {
 		DistanceTable distanceTable = instance.getDistanceTable();
-		int n = tour.length;
 		boolean modified = true;
+		
+		// tours with 3 or fewer nodes are already optimal
+		if (tour.size() < 4) {
+			return;
+		}
 		
 		while (modified) {
 			modified = false;
 			
-			for (int i = 0; i < n; i++) {
-				for (int j = i+2; j < n; j++) {
-					double d1 = distanceTable.getDistanceBetween(tour[i], tour[(i+1) % n]) +
-							distanceTable.getDistanceBetween(tour[j], tour[(j+1) % n]);
-					double d2 = distanceTable.getDistanceBetween(tour[i], tour[j]) +
-							distanceTable.getDistanceBetween(tour[(i+1) % n], tour[(j+1) % n]);
+			for (int i = 0; i < tour.size(); i++) {
+				for (int j = i+2; j < tour.size(); j++) {
+					double d1 = distanceTable.getDistanceBetween(tour.get(i), tour.get(i+1)) +
+							distanceTable.getDistanceBetween(tour.get(j), tour.get(j+1));
+					double d2 = distanceTable.getDistanceBetween(tour.get(i), tour.get(j)) +
+							distanceTable.getDistanceBetween(tour.get(i+1), tour.get(j+1));
 					
+					// if distance can be shortened, adjust the tour
 					if (d2 < d1) {
-						for (int k = 0; k < (j - i) / 2; k++) {
-							int temp = tour[i+1+k];
-							tour[i+1+k] = tour[j-k];
-							tour[j-k] = temp;
-						}
-						
+						tour.reverse(i+1, j);
 						modified = true;
 					}
 				}

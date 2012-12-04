@@ -102,6 +102,9 @@ public class TSPExample {
 		 */
 		private final TSPInstance instance;
 		
+		/**
+		 * The TSP heuristic for aiding the optimization process.
+		 */
 		private final TSP2OptHeuristic heuristic;
 		
 		/**
@@ -121,7 +124,7 @@ public class TSPExample {
 		public void evaluate(Solution solution) {
 			Tour tour = toTour(solution);
 			
-			// apply the heuristic, saving the modified tour
+			// apply the heuristic and save the modified tour
 			heuristic.apply(tour);
 			fromTour(solution, tour);
 

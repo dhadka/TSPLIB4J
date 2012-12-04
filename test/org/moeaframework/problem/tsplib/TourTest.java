@@ -63,5 +63,37 @@ public class TourTest {
 		
 		Assert.assertArrayEquals(expected, tour.toArray());
 	}
+	
+	@Test
+	public void testReverse1() {
+		Tour tour = Tour.createCanonicalTour(5);
+		tour.reverse(1, 3);
+		
+		Assert.assertArrayEquals(new int[] { 1, 4, 3, 2, 5 }, tour.toArray());
+	}
+	
+	@Test
+	public void testReverse2() {
+		Tour tour = Tour.createCanonicalTour(5);
+		tour.reverse(0, 4);
+		
+		Assert.assertArrayEquals(new int[] { 5, 4, 3, 2, 1 }, tour.toArray());
+	}
+	
+	@Test
+	public void testReverse3() {
+		Tour tour = Tour.createCanonicalTour(5);
+		tour.reverse(4, 0);
+		
+		Assert.assertArrayEquals(new int[] { 5, 2, 3, 4, 1 }, tour.toArray());
+	}
+	
+	@Test
+	public void testReverse4() {
+		Tour tour = Tour.createCanonicalTour(5);
+		tour.reverse(2, 2);
+		
+		Assert.assertArrayEquals(new int[] { 1, 2, 3, 4, 5 }, tour.toArray());
+	}
 
 }

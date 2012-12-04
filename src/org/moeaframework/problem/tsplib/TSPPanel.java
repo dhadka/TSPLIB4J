@@ -301,7 +301,7 @@ public class TSPPanel extends JPanel {
 
 			for (int i = 0; i < tour.size(); i++) {
 				Node node1 = displayData.get(tour.get(i));
-				Node node2 = displayData.get(tour.get((i+1) % tour.size()));
+				Node node2 = displayData.get(tour.get(i+1));
 				double[] position1 = toDisplayCoordinates(node1, isGeographical);
 				double[] position2 = toDisplayCoordinates(node2, isGeographical);
 
