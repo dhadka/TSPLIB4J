@@ -29,7 +29,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Stores the nodes (by their identifier) that are visited in a tour.
+ * Stores the nodes (by their identifier) that are visited in a tour.  Tours
+ * are cyclic, so an implicit edge exists between the last index and the first.
  */
 public class Tour {
 	
@@ -229,6 +230,17 @@ public class Tour {
 		return true;
 	}
 	
+	/**
+	 * Reverses the order in which the nodes are visited between the two
+	 * specified indices.  The first index defines the start of the
+	 * reverse operation; the second index defines the stopping position.
+	 * Tours are cyclic, so the reverse operation, when the second index is less
+	 * than the first, gets wrapped around the end of the array.  The indices
+	 * are inclusive.
+	 * 
+	 * @param i the first index, or starting index
+	 * @param j the second index, or stopping index
+	 */
 	public void reverse(int i, int j) {
 		while (j < i) {
 			j += nodes.size();
