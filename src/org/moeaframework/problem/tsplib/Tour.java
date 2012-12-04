@@ -267,9 +267,14 @@ public class Tour {
 		return isEqual;
 	}
 	
+	@Override
+	public String toString() {
+		return nodes.toString();
+	}
+	
 	/**
 	 * Returns the canonical tour with the given length.  The canonical
-	 * tour visits the nodes in order, i.e., {@code 1, 2, 3, ..., length}.
+	 * tour visits the nodes in order, i.e., {@code [1, 2, 3, ..., length]}.
 	 * 
 	 * @param length the number of nodes in the resulting tour
 	 * @return the canonical tour with the given length
@@ -298,7 +303,8 @@ public class Tour {
 	}
 	
 	/**
-	 * Constructs a tour from the specified array.
+	 * Constructs a tour from the specified array.  The values in the array
+	 * should start at {@code 1}.
 	 * 
 	 * @param entries the nodes visited in the tour
 	 * @return the tour constructed from the specified array
