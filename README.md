@@ -13,9 +13,9 @@ Prerequisites:
   
 ### Setup
 
-Unix/Linux users can run the download-datasets.sh bash script to download and setup the TSPLIB problem instances.
+Unix/Linux users can run the `download-datasets.sh` bash script to download and setup the TSPLIB problem instances.
 
-For Windows users, first create a `data/` directory and the subfolders listed below.  Next, download any or all of the [TSPLIB problem instances](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/) problem instances.  Finally, extract the problem instances into the appropriate folder.
+For Windows users, first create a `data/` directory and the subfolders listed below.  Next, download any or all of the [TSPLIB problem instances](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/).  Finally, extract the problem instances into the appropriate folder.
 
     data/atsp
     data/hcp
