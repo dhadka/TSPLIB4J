@@ -3,7 +3,13 @@ A Java library for TSPLIB
 
 ### About TSPLIB4J:
 
-[TSPLIB](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/) is a collection of [traveling salesman](http://en.wikipedia.org/wiki/Travelling_salesman_problem), [vehicle routing](http://en.wikipedia.org/wiki/Vehicle_routing_problem), and [Hamiltonian cycle](http://en.wikipedia.org/wiki/Hamiltonian_path_problem) problem instances and a file format for storing instance data.  TSPLIB4J is a Java library for reading and processing TSPLIB instance data.  TSPLIB4J is licensed under the MIT license.
+[TSPLIB](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/) is a collection
+of [traveling salesman](http://en.wikipedia.org/wiki/Travelling_salesman_problem),
+[vehicle routing](http://en.wikipedia.org/wiki/Vehicle_routing_problem), and
+[Hamiltonian cycle](http://en.wikipedia.org/wiki/Hamiltonian_path_problem)
+problem instances and a file format for storing instance data.  TSPLIB4J is a
+Java library for reading and processing TSPLIB instance data.  TSPLIB4J is
+licensed under the MIT license.
 
 Prerequisites:
 
@@ -13,9 +19,13 @@ Prerequisites:
   
 ### Setup
 
-Unix/Linux users can run the `download-datasets.sh` bash script to download and setup the TSPLIB problem instances.
+Unix/Linux users can run the `download-datasets.sh` bash script to download and
+setup the TSPLIB problem instances.
 
-For Windows users, first create a `data/` directory and the subfolders listed below.  Next, download any or all of the [TSPLIB problem instances](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/).  Finally, extract the problem instances into the appropriate folder.
+For Windows users, first create a `data/` directory and the subfolders listed
+below.  Next, download any or all of the
+[TSPLIB problem instances](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/).
+Finally, extract the problem instances into the appropriate folder.
 
     data/atsp
     data/hcp
@@ -59,7 +69,15 @@ For Windows users, first create a `data/` directory and the subfolders listed be
     
 ### Optimization Example
 
-The `TSPExample.java` file provides an example of optimizing a traveling salesman problem using the [MOEA Framework](http://www.moeaframework.org) library.  To run this example, you must first download the [compiled binaries for the MOEA Framework](http://www.moeaframework.org/downloads.html).  Next, you'll need to include the `.jar` files in the `lib/` directory when compiling and running the TSPLIB4J code.  Finally, run TSPExample.  TSPExample creates a GUI showing the evolution of the optimal solution from the initial random population to the final optimal solution discovered by a genetic algorithm.  The current example solves the `data/tsp/pr76.tsp` problem instance.
+The `TSPExample.java` file provides an example of optimizing a traveling
+salesman problem using the [MOEA Framework](http://www.moeaframework.org)
+library.  To run this example, you must first download the [compiled binaries
+for the MOEA Framework](http://www.moeaframework.org/downloads.html).  Next,
+you'll need to include the `.jar` files in the `lib/` directory when compiling
+and running the TSPLIB4J code.  Finally, run TSPExample.  TSPExample creates a
+GUI showing the evolution of the optimal solution from the initial random
+population to the final optimal solution discovered by a genetic algorithm.
+The current example solves the `data/tsp/pr76.tsp` problem instance.
 
 
 Other Open Source Libraries
