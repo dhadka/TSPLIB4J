@@ -1,4 +1,7 @@
 #!/bin/bash
+# This bash script downloads and configures the TSPLIB problem instances for use by
+# the TSPLIB4J library.  Users should familiarize themselves with the TSPLIB
+# license agreement prior to running this script.
 
 TYPES=("tsp" "hcp" "atsp" "sop" "vrp")
 URLS=("http://www.iwr.uni-heidelberg.de/groups/comopt/software/TSPLIB95/tsp/ALL_tsp.tar.gz"
