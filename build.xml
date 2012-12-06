@@ -77,7 +77,11 @@ IN THE SOFTWARE.
 		<javac destdir="${build}/bin" srcdir="src" debug="${java.debug}"
 				excludes="**/package-info.java"
 				includeantruntime="false"
-				encoding="UTF-8" />
+				encoding="UTF-8">
+			<classpath>
+				<fileset dir="lib" />
+			</classpath>
+		</javac>
 
 		<copy todir="${build}/bin/META-INF">
 			<fileset file="COPYING" />
@@ -115,6 +119,7 @@ IN THE SOFTWARE.
 				<include name="build.xml" />
 				<include name="README.md" />
 				<include name="COPYING" />
+				<include name="download-datasets.sh" />
 				<exclude name="bin/**" />
 				<exclude name="dist/**" />
 				<exclude name="build/**" />
