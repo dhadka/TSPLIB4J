@@ -11,8 +11,6 @@ problem instances and a file format for storing instance data.  TSPLIB4J is a
 Java library for reading and processing TSPLIB instance data.  TSPLIB4J is
 licensed under the MIT license.
 
-![Screenshot of TSPLIB4J](screenshot.png "Screenshot of TSPLIB4J")
-
 ### Prerequisites
 
   - Java 1.5 or later
@@ -80,6 +78,8 @@ and running the TSPLIB4J code.  Finally, run TSPExample.  TSPExample creates a
 GUI showing the evolution of the optimal solution from the initial random
 population to the final optimal solution discovered by a genetic algorithm.
 The current example solves the `data/tsp/pr76.tsp` problem instance.
+
+->![Screenshot of TSPLIB4J](screenshot.png "Screenshot of TSPLIB4J")<-
 
 
 Other Open Source Libraries
