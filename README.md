@@ -77,9 +77,10 @@ you'll need to include the `.jar` files in the `lib/` directory when compiling
 and running the TSPLIB4J code.  Finally, run TSPExample.  TSPExample creates a
 GUI showing the evolution of the optimal solution from the initial random
 population to the final optimal solution discovered by a genetic algorithm.
-The current example solves the `data/tsp/pr76.tsp` problem instance.
+The current example solves the `data/tsp/pr76.tsp` problem instance.  An
+example of this is shown in the screenshot below.
 
-->![Screenshot of TSPLIB4J](screenshot.png "Screenshot of TSPLIB4J")<-
+![Screenshot of TSPLIB4J](screenshot.png "Screenshot of TSPLIB4J")
 
 
 Other Open Source Libraries
