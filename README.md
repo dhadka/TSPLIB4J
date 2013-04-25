@@ -11,7 +11,9 @@ problem instances and a file format for storing instance data.  TSPLIB4J is a
 Java library for reading and processing TSPLIB instance data.  TSPLIB4J is
 licensed under the MIT license.
 
-Prerequisites:
+![Screenshot of TSPLIB4J](screenshot.png "Screenshot of TSPLIB4J")
+
+### Prerequisites
 
   - Java 1.5 or later
   - [JUnit 4](http://www.junit.org/) to run test cases
