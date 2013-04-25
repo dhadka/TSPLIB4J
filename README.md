@@ -33,7 +33,11 @@ Finally, extract the problem instances into the appropriate folder.
     data/tsp
     data/vrp
 
-### Traveling Salesman Problem:
+### Traveling Salesman Problem (TSP)
+
+TSPLIB4J provides the necessary methods to load TSP problem instances,
+save and load tours, and provides useful methods for validating and
+calculating the distance of tours.
 
     TSPProblem problem = new TSPProblem(new File("./data/tsp/pcb442.tsp"));
     problem.addTour(new File("./data/tsp/pcb442.opt.tour"));
@@ -42,7 +46,12 @@ Finally, extract the problem instances into the appropriate folder.
     	System.out.println(tour.distance(problem));
     }
     
-### Hamiltonian Cycle Problem:
+### Additional Problem Types
+
+TSPLIB4J also provides support for Hamiltonian cycle problems (HCP),
+asymmetric traveling salesman problems (ATSP), sequential ordering problems (SOP),
+and vehicle routing problems (VRP).  For example, the code snippet below
+demonstrates working with a HCP instance.
 
     TSPProblem problem = new TSPProblem(new File("./data/hcp/alb1000.hcp"));
     problem.addTour(new File("./data/hcp/alb1000.opt.tour"));
@@ -52,6 +61,9 @@ Finally, extract the problem instances into the appropriate folder.
     }
     
 ### Displaying Solutions
+
+Problem instances and tours can be quickly displayed in Java GUIs using the
+built-in TSPPanel Swing panel.
 
     TSPProblem problem = new TSPProblem(new File("./data/tsp/gr120.tsp"));
     problem.addTour(new File("./data/tsp/gr120.opt.tour"));
@@ -77,8 +89,10 @@ you'll need to include the `.jar` files in the `lib/` directory when compiling
 and running the TSPLIB4J code.  Finally, run TSPExample.  TSPExample creates a
 GUI showing the evolution of the optimal solution from the initial random
 population to the final optimal solution discovered by a genetic algorithm.
-The current example solves the `data/tsp/pr76.tsp` problem instance.  An
-example of this is shown in the screenshot below.
+
+The current example solves the `data/tsp/pr76.tsp` problem instance, as shown in
+the screenshot below.  The red line shows the best tour found so far and the
+gray lines show alternate routes being searched by the genetic algorithm.
 
 ![Screenshot of TSPLIB4J](screenshot.png "Screenshot of TSPLIB4J")
 
