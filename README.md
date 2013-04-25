@@ -1,7 +1,7 @@
 A Java library for TSPLIB
 ===
 
-### About TSPLIB4J:
+### About TSPLIB4J
 
 [TSPLIB](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/) is a collection
 of [traveling salesman](http://en.wikipedia.org/wiki/Travelling_salesman_problem),
@@ -11,7 +11,7 @@ problem instances and a file format for storing instance data.  TSPLIB4J is a
 Java library for reading and processing TSPLIB instance data.  TSPLIB4J is
 licensed under the MIT license.
 
-### Prerequisites
+Prerequisites:
 
   - Java 1.5 or later
   - [JUnit 4](http://www.junit.org/) to run test cases
